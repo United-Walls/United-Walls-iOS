@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Wall: Codable {
     let _id: String

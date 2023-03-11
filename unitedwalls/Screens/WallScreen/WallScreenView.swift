@@ -15,6 +15,9 @@ struct WallScreenView: View {
     @StateObject var UIState: UIStateModel = UIStateModel()
     @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", file_name: "", file_url: "", mime_type: "", updatedAt: "", addedBy: "")
     @State private var offset: CGSize = .zero
+    @State private var currentImage: UIImage?
+    @State private var saved: Bool = false
+    @State private var showShareSheet = false
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -53,6 +56,10 @@ struct WallScreenView: View {
             
             VStack(alignment: .center) {
                 Image(systemName: "chevron.up").resizable().scaledToFit().frame(width: 30, height: 30).frame(maxWidth: .infinity, maxHeight: UIScreen.screenHeight).offset(y: -(UIScreen.screenHeight - 540)).opacity(offset.height < -10 ? 1 : 0).animation(.interactiveSpring(), value: offset)
+            }
+            
+            VStack(alignment: .center) {
+                Text("Wallpaper saved in the Photos App").padding(12).background(Color.theme.bgTertiaryColor).cornerRadius(100).frame(width: 300, height: 30).shadow(radius: 20, x: 3, y: 12).frame(maxWidth: .infinity, maxHeight: UIScreen.screenHeight).offset(y: saved ?  -(UIScreen.screenHeight - 540) : -(UIScreen.screenHeight - 440)).opacity(saved ? 1 : 0).animation(.spring(), value: saved)
             }
             
             VStack(spacing: 0) {
@@ -151,7 +158,7 @@ struct WallScreenView: View {
                 //Share Button
                 if #available(iOS 15.0, *) {
                     Button {
-
+                        showShareSheet.toggle()
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                             .resizable()
@@ -162,11 +169,15 @@ struct WallScreenView: View {
                     .frame(width: 36, height: 36)
                     .background(.ultraThinMaterial)
                     .cornerRadius(100)
+                    .sheet(isPresented: $showShareSheet) {
+                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                        ShareSheet(photo: inputImage)
+                    }
                     
                 } else {
                     // Fallback on earlier versions
                     Button {
-
+                        showShareSheet.toggle()
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                             .resizable()
@@ -177,12 +188,27 @@ struct WallScreenView: View {
                     .frame(width: 36, height: 36)
                     .background(Color.theme.bgTertiaryColor.opacity(0.5))
                     .cornerRadius(100)
+                    .sheet(isPresented: $showShareSheet) {
+                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                        ShareSheet(photo: inputImage)
+                    }
                 }
 
                 //Download Button
                 if #available(iOS 15.0, *) {
                     Button {
-
+                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                        
+                        let imageSaver = PhotoManager(albumName: "United Setups")
+                        imageSaver.save(inputImage) { completed, error in
+                            if completed {
+                                saved = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                    saved = false
+                                }
+                            }
+                        }
                     } label: {
                         Image(systemName: "square.and.arrow.down")
                             .resizable()
@@ -197,7 +223,13 @@ struct WallScreenView: View {
                 } else {
                     // Fallback on earlier versions
                     Button {
-
+                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                        
+                        let imageSaver = PhotoManager(albumName: "United Walls")
+                        imageSaver.save(inputImage) { completed, error in
+                            print("Completed \(completed)")
+                            print("Error \(String(describing: error))")
+                        }
                     } label: {
                         Image(systemName: "square.and.arrow.down")
                             .resizable()

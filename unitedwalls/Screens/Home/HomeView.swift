@@ -14,14 +14,7 @@ struct HomeView: View {
     
     var body: some View {
         ScrollView {
-            if apiManager.loadingWalls {
-                VStack {
-                    ProgressView()
-                        .padding()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            LazyVStack(spacing: 0) {
+            LazyVStack(spacing: 6) {
                 ForEach(Array(apiManager.walls.enumerated()), id:\.element._id) { index, wall in
                     Button {
                         contentViewViewModel.closeHomeView()
@@ -40,10 +33,10 @@ struct HomeView: View {
                             .frame(width: UIScreen.screenWidth, height: 420, alignment: .center)
                             .background(Color.theme.bgTertiaryColor)
                             .cornerRadius(18)
-                            .padding(.bottom, 6)
-                            .shadow(radius: 20, x: 3, y: 12)
+                            
                     }
                     .buttonStyle(.plain)
+                    .contentShape(Rectangle())
                 }
             }
         }

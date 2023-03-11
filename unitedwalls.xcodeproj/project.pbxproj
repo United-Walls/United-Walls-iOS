@@ -16,8 +16,6 @@
 		E68FBCDF29B9788200BA2328 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCDE29B9788200BA2328 /* Wall.swift */; };
 		E68FBCE229B978A200BA2328 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCE129B978A200BA2328 /* Category.swift */; };
 		E68FBCE529B978C800BA2328 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCE429B978C800BA2328 /* Constants.swift */; };
-		E68FBCE729B9790500BA2328 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCE629B9790500BA2328 /* ImageCache.swift */; };
-		E68FBCE929B9791200BA2328 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCE829B9791200BA2328 /* ImageLoader.swift */; };
 		E68FBCEC29B9797D00BA2328 /* billiondreams.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E68FBCEB29B9797D00BA2328 /* billiondreams.ttf */; };
 		E68FBCF029B97B0700BA2328 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCEF29B97B0700BA2328 /* Color.swift */; };
 		E68FBCF229B97B1B00BA2328 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCF129B97B1B00BA2328 /* UIScreen.swift */; };
@@ -30,7 +28,9 @@
 		E68FBD0629B987D800BA2328 /* WallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBD0529B987D800BA2328 /* WallScreenView.swift */; };
 		E6923E8E29BB573F00EE7B8E /* UIStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E8D29BB573F00EE7B8E /* UIStateModel.swift */; };
 		E6923E9229BB65D400EE7B8E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9129BB65D400EE7B8E /* View.swift */; };
-		E6923E9529BBE8EE00EE7B8E /* FLEX in Frameworks */ = {isa = PBXBuildFile; productRef = E6923E9429BBE8EE00EE7B8E /* FLEX */; };
+		E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9829BC424F00EE7B8E /* PhotoManager.swift */; };
+		E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9A29BC4AD400EE7B8E /* ShareSheet.swift */; };
+		E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EA029BCA84300EE7B8E /* UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +44,6 @@
 		E68FBCDE29B9788200BA2328 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		E68FBCE129B978A200BA2328 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		E68FBCE429B978C800BA2328 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		E68FBCE629B9790500BA2328 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		E68FBCE829B9791200BA2328 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		E68FBCEB29B9797D00BA2328 /* billiondreams.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billiondreams.ttf; sourceTree = "<group>"; };
 		E68FBCED29B979E900BA2328 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E68FBCEF29B97B0700BA2328 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -58,6 +56,9 @@
 		E68FBD0529B987D800BA2328 /* WallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallScreenView.swift; sourceTree = "<group>"; };
 		E6923E8D29BB573F00EE7B8E /* UIStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStateModel.swift; sourceTree = "<group>"; };
 		E6923E9129BB65D400EE7B8E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		E6923E9829BC424F00EE7B8E /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		E6923E9A29BC4AD400EE7B8E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		E6923EA029BCA84300EE7B8E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +67,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E68FBD0329B983C500BA2328 /* SDWebImageSwiftUI in Frameworks */,
-				E6923E9529BBE8EE00EE7B8E /* FLEX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				E68FBCE429B978C800BA2328 /* Constants.swift */,
-				E68FBCE629B9790500BA2328 /* ImageCache.swift */,
-				E68FBCE829B9791200BA2328 /* ImageLoader.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -159,6 +157,7 @@
 				E68FBCEF29B97B0700BA2328 /* Color.swift */,
 				E68FBCF129B97B1B00BA2328 /* UIScreen.swift */,
 				E6923E9129BB65D400EE7B8E /* View.swift */,
+				E6923EA029BCA84300EE7B8E /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -167,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				E68FBCF429B97B4D00BA2328 /* ApiManager.swift */,
+				E6923E9829BC424F00EE7B8E /* PhotoManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -177,6 +177,7 @@
 				E68FBCF929B97D0D00BA2328 /* Drawer.swift */,
 				E68FBCFB29B97F3D00BA2328 /* Topbar.swift */,
 				E661A09029B9FEB900C14423 /* Container.swift */,
+				E6923E9A29BC4AD400EE7B8E /* ShareSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -225,7 +226,6 @@
 			name = unitedwalls;
 			packageProductDependencies = (
 				E68FBD0229B983C500BA2328 /* SDWebImageSwiftUI */,
-				E6923E9429BBE8EE00EE7B8E /* FLEX */,
 			);
 			productName = unitedwalls;
 			productReference = E68FBCCC29B9772E00BA2328 /* unitedwalls.app */;
@@ -257,7 +257,6 @@
 			mainGroup = E68FBCC329B9772D00BA2328;
 			packageReferences = (
 				E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				E6923E9329BBE8EE00EE7B8E /* XCRemoteSwiftPackageReference "FLEX" */,
 			);
 			productRefGroup = E68FBCCD29B9772E00BA2328 /* Products */;
 			projectDirPath = "";
@@ -286,14 +285,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E68FBCE929B9791200BA2328 /* ImageLoader.swift in Sources */,
 				E6923E8E29BB573F00EE7B8E /* UIStateModel.swift in Sources */,
 				E661A09129B9FEB900C14423 /* Container.swift in Sources */,
 				E68FBD0029B9818100BA2328 /* HomeView.swift in Sources */,
 				E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */,
 				E68FBCF729B97C6100BA2328 /* ContentViewViewModel.swift in Sources */,
+				E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */,
 				E6923E9229BB65D400EE7B8E /* View.swift in Sources */,
-				E68FBCE729B9790500BA2328 /* ImageCache.swift in Sources */,
+				E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */,
 				E68FBCF529B97B4D00BA2328 /* ApiManager.swift in Sources */,
 				E68FBCFA29B97D0D00BA2328 /* Drawer.swift in Sources */,
 				E68FBCE529B978C800BA2328 /* Constants.swift in Sources */,
@@ -303,6 +302,7 @@
 				E68FBCDF29B9788200BA2328 /* Wall.swift in Sources */,
 				E68FBCF029B97B0700BA2328 /* Color.swift in Sources */,
 				E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */,
+				E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */,
 				E68FBCE229B978A200BA2328 /* Category.swift in Sources */,
 				E68FBCFC29B97F3D00BA2328 /* Topbar.swift in Sources */,
 			);
@@ -439,6 +439,7 @@
 				INFOPLIST_FILE = unitedwalls/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "United Walls";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need Permission to save Wallpapers to your Photo Album, make sure you allow Access to All Photos, so we can create a Separate Album with all your walls within.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -476,6 +477,7 @@
 				INFOPLIST_FILE = unitedwalls/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "United Walls";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need Permission to save Wallpapers to your Photo Album, make sure you allow Access to All Photos, so we can create a Separate Album with all your walls within.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -530,14 +532,6 @@
 				kind = branch;
 			};
 		};
-		E6923E9329BBE8EE00EE7B8E /* XCRemoteSwiftPackageReference "FLEX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/FLEXTool/FLEX.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -545,11 +539,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		E6923E9429BBE8EE00EE7B8E /* FLEX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6923E9329BBE8EE00EE7B8E /* XCRemoteSwiftPackageReference "FLEX" */;
-			productName = FLEX;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
