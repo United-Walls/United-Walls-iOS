@@ -1,27 +1,28 @@
 //
-//  HomeView.swift
+//  FavouriteWallsView.swift
 //  unitedwalls
 //
-//  Created by Paras KCD on 2023-03-08.
+//  Created by Paras KCD on 2023-03-13.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct HomeView: View {
+struct FavouriteWallsView: View {
     @EnvironmentObject var apiManager: ApiManager
+    @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 6) {
-                ForEach(Array(apiManager.walls.enumerated()), id:\.element._id) { index, wall in
+                ForEach(Array(apiManager.favouriteWalls.enumerated()), id:\.element._id) { index, wall in
                     Button {
-                        apiManager.loadWallScreenWalls(walls: apiManager.walls)
+                        apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
                         contentViewViewModel.changeWallIndex(index: index)
                         contentViewViewModel.changeOpacity(opacity: 0.75)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            contentViewViewModel.openWallScreenView()
+                            contentViewViewModel.openFavouriteWallScreenView()
                         }
                     } label: {
                         WebImage(url: URL(string: wall.file_url))
@@ -36,27 +37,15 @@ struct HomeView: View {
                     }
                     .buttonStyle(.plain)
                     .contentShape(Rectangle())
-                    if index % 4 == 0 && index > 0 {
-                        #if DEBUG
-                        VStack {
-                            Spacer()
-                            SwiftUIBannerAd(adPosition: .top, adUnitId: "ca-app-pub-3940256099942544/2934735716")
-                        }
-                        .frame(width: UIScreen.screenWidth, height: 70)
-                        #else
-                        VStack {
-                            Spacer()
-                            SwiftUIBannerAd(adPosition: .top, adUnitId: "ca-app-pub-2689519261612254/4973208582")
-                        }
-                        .frame(width: UIScreen.screenWidth, height: 70)
-                        #endif
-                    }
+                    .gesture(DragGesture(minimumDistance: 0).onChanged({ _ in
+                        //do nothing
+                    }))
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.homeViewOpened ? 0 : -UIScreen.screenWidth)
-        .opacity(contentViewViewModel.homeViewOpened ? 1 : 0)
-        .animation(.spring(), value: contentViewViewModel.homeViewOpened)
+        .offset(x: contentViewViewModel.favouriteWallsViewOpened ? 0 : -UIScreen.screenWidth)
+        .opacity(contentViewViewModel.favouriteWallsViewOpened ? 1 : 0)
+        .animation(.spring(), value: contentViewViewModel.favouriteWallsViewOpened)
     }
 }

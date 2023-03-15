@@ -12,9 +12,19 @@ class ContentViewViewModel: ObservableObject {
     @Published var sidebarOpened: Bool = false
     @Published var homeViewOpened: Bool = true
     @Published var wallScreenViewOpened: Bool = false
+    @Published var favouriteWallScreenViewOpened: Bool = false
     @Published var wallIndex: Int = 0
     @Published var aboutViewOpened: Bool = false
     @Published var topBarOpened: Bool = true
+    @Published var favouriteWallsViewOpened: Bool = false
+    @Published var categoriesViewOpened: Bool = false
+    @Published var categoryViewOpened: Bool = false
+    @Published var categoryWallScreenViewOpened: Bool = false
+    @Published var sidebarOffset: CGFloat = 0
+    
+    func changeOffset(offset: CGFloat) {
+        sidebarOffset = offset
+    }
     
     func changeOpacity(opacity: Double) {
         self.opacity = opacity
@@ -51,6 +61,14 @@ class ContentViewViewModel: ObservableObject {
         self.wallScreenViewOpened = false
     }
     
+    func openFavouriteWallScreenView() {
+        self.favouriteWallScreenViewOpened = true
+    }
+    
+    func closeFavouriteWallScreenView() {
+        self.favouriteWallScreenViewOpened = false
+    }
+    
     func changeWallIndex(index: Int) {
         self.wallIndex = index
     }
@@ -69,5 +87,37 @@ class ContentViewViewModel: ObservableObject {
     
     func closeTopBar() {
         self.topBarOpened = false
+    }
+    
+    func openFavouriteWalls() {
+        self.favouriteWallsViewOpened = true
+    }
+    
+    func closeFavouriteWalls() {
+        self.favouriteWallsViewOpened = false
+    }
+    
+    func openCategoriesView() {
+        self.categoriesViewOpened = true
+    }
+    
+    func closeCategoriesView() {
+        self.categoriesViewOpened = false
+    }
+    
+    func openCategoryView() {
+        self.categoryViewOpened = true
+    }
+    
+    func closeCategoryView() {
+        self.categoryViewOpened = false
+    }
+    
+    func openCategoryWallScreenView() {
+        self.categoryWallScreenViewOpened = true
+    }
+    
+    func closeCategoryWallScreenView() {
+        self.categoryWallScreenViewOpened = false
     }
 }

@@ -26,12 +26,33 @@
 		E68FBD0029B9818100BA2328 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCFF29B9818100BA2328 /* HomeView.swift */; };
 		E68FBD0329B983C500BA2328 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E68FBD0229B983C500BA2328 /* SDWebImageSwiftUI */; };
 		E68FBD0629B987D800BA2328 /* WallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBD0529B987D800BA2328 /* WallScreenView.swift */; };
-		E6923E8E29BB573F00EE7B8E /* UIStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E8D29BB573F00EE7B8E /* UIStateModel.swift */; };
 		E6923E9229BB65D400EE7B8E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9129BB65D400EE7B8E /* View.swift */; };
 		E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9829BC424F00EE7B8E /* PhotoManager.swift */; };
 		E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923E9A29BC4AD400EE7B8E /* ShareSheet.swift */; };
 		E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EA029BCA84300EE7B8E /* UIImage.swift */; };
+		E6923EA429BF513D00EE7B8E /* FavouriteWallsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EA329BF513D00EE7B8E /* FavouriteWallsStore.swift */; };
+		E6923EA729BF5F2100EE7B8E /* FavouriteWallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EA629BF5F2100EE7B8E /* FavouriteWallsView.swift */; };
+		E6923EA929BFAE0C00EE7B8E /* FavouriteWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EA829BFAE0C00EE7B8E /* FavouriteWallScreenView.swift */; };
+		E6923EAC29BFBEFE00EE7B8E /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EAB29BFBEFE00EE7B8E /* CategoriesView.swift */; };
+		E6923EAF29BFCCC600EE7B8E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */; };
+		E6923EB129BFD19200EE7B8E /* CategoryWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */; };
+		E6923EB329C0728300EE7B8E /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB229C0728300EE7B8E /* PinchToZoom.swift */; };
+		E6FD20D229C1E0F70058A008 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = E6FD20D129C1E0F70058A008 /* GoogleMobileAds */; };
+		E6FD20DD29C1E7110058A008 /* SwiftUIBannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E6FD20DA29C1E5CC0058A008 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E661A08E29B9FE6700C14423 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -54,11 +75,18 @@
 		E68FBCFB29B97F3D00BA2328 /* Topbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topbar.swift; sourceTree = "<group>"; };
 		E68FBCFF29B9818100BA2328 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E68FBD0529B987D800BA2328 /* WallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallScreenView.swift; sourceTree = "<group>"; };
-		E6923E8D29BB573F00EE7B8E /* UIStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStateModel.swift; sourceTree = "<group>"; };
 		E6923E9129BB65D400EE7B8E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		E6923E9829BC424F00EE7B8E /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		E6923E9A29BC4AD400EE7B8E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		E6923EA029BCA84300EE7B8E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		E6923EA329BF513D00EE7B8E /* FavouriteWallsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteWallsStore.swift; sourceTree = "<group>"; };
+		E6923EA629BF5F2100EE7B8E /* FavouriteWallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteWallsView.swift; sourceTree = "<group>"; };
+		E6923EA829BFAE0C00EE7B8E /* FavouriteWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteWallScreenView.swift; sourceTree = "<group>"; };
+		E6923EAB29BFBEFE00EE7B8E /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryWallScreenView.swift; sourceTree = "<group>"; };
+		E6923EB229C0728300EE7B8E /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
+		E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBannerAd.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6FD20D229C1E0F70058A008 /* GoogleMobileAds in Frameworks */,
 				E68FBD0329B983C500BA2328 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +129,8 @@
 		E68FBCCE29B9772E00BA2328 /* unitedwalls */ = {
 			isa = PBXGroup;
 			children = (
+				E6FD20DB29C1E6E90058A008 /* AdvertisementViews */,
+				E6923EA229BF512A00EE7B8E /* DataStore */,
 				E68FBCFD29B9816300BA2328 /* Screens */,
 				E68FBCF829B97CF200BA2328 /* Components */,
 				E68FBCF329B97B3F00BA2328 /* Managers */,
@@ -130,7 +161,6 @@
 			children = (
 				E68FBCDE29B9788200BA2328 /* Wall.swift */,
 				E68FBCE129B978A200BA2328 /* Category.swift */,
-				E6923E8D29BB573F00EE7B8E /* UIStateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -139,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				E68FBCE429B978C800BA2328 /* Constants.swift */,
+				E6923EB229C0728300EE7B8E /* PinchToZoom.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -185,6 +216,9 @@
 		E68FBCFD29B9816300BA2328 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E6923EAD29BFCCB500EE7B8E /* Category */,
+				E6923EAA29BFBEDC00EE7B8E /* Categories */,
+				E6923EA529BF5F0B00EE7B8E /* FavouriteWalls */,
 				E661A08D29B9FE4700C14423 /* About */,
 				E68FBD0429B987C100BA2328 /* WallScreen */,
 				E68FBCFE29B9817000BA2328 /* Home */,
@@ -204,8 +238,50 @@
 			isa = PBXGroup;
 			children = (
 				E68FBD0529B987D800BA2328 /* WallScreenView.swift */,
+				E6923EA829BFAE0C00EE7B8E /* FavouriteWallScreenView.swift */,
+				E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */,
 			);
 			path = WallScreen;
+			sourceTree = "<group>";
+		};
+		E6923EA229BF512A00EE7B8E /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				E6923EA329BF513D00EE7B8E /* FavouriteWallsStore.swift */,
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
+		E6923EA529BF5F0B00EE7B8E /* FavouriteWalls */ = {
+			isa = PBXGroup;
+			children = (
+				E6923EA629BF5F2100EE7B8E /* FavouriteWallsView.swift */,
+			);
+			path = FavouriteWalls;
+			sourceTree = "<group>";
+		};
+		E6923EAA29BFBEDC00EE7B8E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E6923EAB29BFBEFE00EE7B8E /* CategoriesView.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		E6923EAD29BFCCB500EE7B8E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		E6FD20DB29C1E6E90058A008 /* AdvertisementViews */ = {
+			isa = PBXGroup;
+			children = (
+				E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */,
+			);
+			path = AdvertisementViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +294,7 @@
 				E68FBCC829B9772E00BA2328 /* Sources */,
 				E68FBCC929B9772E00BA2328 /* Frameworks */,
 				E68FBCCA29B9772E00BA2328 /* Resources */,
+				E6FD20DA29C1E5CC0058A008 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +303,7 @@
 			name = unitedwalls;
 			packageProductDependencies = (
 				E68FBD0229B983C500BA2328 /* SDWebImageSwiftUI */,
+				E6FD20D129C1E0F70058A008 /* GoogleMobileAds */,
 			);
 			productName = unitedwalls;
 			productReference = E68FBCCC29B9772E00BA2328 /* unitedwalls.app */;
@@ -257,6 +335,7 @@
 			mainGroup = E68FBCC329B9772D00BA2328;
 			packageReferences = (
 				E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				E6FD20D029C1E0F70058A008 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = E68FBCCD29B9772E00BA2328 /* Products */;
 			projectDirPath = "";
@@ -285,7 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6923E8E29BB573F00EE7B8E /* UIStateModel.swift in Sources */,
+				E6923EA929BFAE0C00EE7B8E /* FavouriteWallScreenView.swift in Sources */,
 				E661A09129B9FEB900C14423 /* Container.swift in Sources */,
 				E68FBD0029B9818100BA2328 /* HomeView.swift in Sources */,
 				E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */,
@@ -293,17 +372,24 @@
 				E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */,
 				E6923E9229BB65D400EE7B8E /* View.swift in Sources */,
 				E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */,
+				E6923EAC29BFBEFE00EE7B8E /* CategoriesView.swift in Sources */,
 				E68FBCF529B97B4D00BA2328 /* ApiManager.swift in Sources */,
 				E68FBCFA29B97D0D00BA2328 /* Drawer.swift in Sources */,
 				E68FBCE529B978C800BA2328 /* Constants.swift in Sources */,
+				E6923EB129BFD19200EE7B8E /* CategoryWallScreenView.swift in Sources */,
 				E68FBD0629B987D800BA2328 /* WallScreenView.swift in Sources */,
 				E68FBCD229B9772E00BA2328 /* ContentView.swift in Sources */,
+				E6923EAF29BFCCC600EE7B8E /* CategoryView.swift in Sources */,
+				E6FD20DD29C1E7110058A008 /* SwiftUIBannerAd.swift in Sources */,
 				E68FBCF229B97B1B00BA2328 /* UIScreen.swift in Sources */,
 				E68FBCDF29B9788200BA2328 /* Wall.swift in Sources */,
 				E68FBCF029B97B0700BA2328 /* Color.swift in Sources */,
 				E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */,
 				E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */,
+				E6923EA729BF5F2100EE7B8E /* FavouriteWallsView.swift in Sources */,
+				E6923EB329C0728300EE7B8E /* PinchToZoom.swift in Sources */,
 				E68FBCE229B978A200BA2328 /* Category.swift in Sources */,
+				E6923EA429BF513D00EE7B8E /* FavouriteWallsStore.swift in Sources */,
 				E68FBCFC29B97F3D00BA2328 /* Topbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,6 +537,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.paraskcd.unitedwalls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -489,6 +576,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.paraskcd.unitedwalls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -532,6 +620,14 @@
 				kind = branch;
 			};
 		};
+		E6FD20D029C1E0F70058A008 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -539,6 +635,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		E6FD20D129C1E0F70058A008 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6FD20D029C1E0F70058A008 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

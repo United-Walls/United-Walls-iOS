@@ -11,6 +11,7 @@ struct Drawer: View {
     var opened: Bool = false
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
+    @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -30,8 +31,52 @@ struct Drawer: View {
                     if contentViewViewModel.aboutViewOpened {
                         contentViewViewModel.closeAboutView()
                     }
+                    if contentViewViewModel.categoriesViewOpened {
+                        contentViewViewModel.closeCategoriesView()
+                    }
+                    if contentViewViewModel.favouriteWallsViewOpened {
+                        contentViewViewModel.closeFavouriteWalls()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadFavouriteWalls()
+                        }
+                    }
+                    if contentViewViewModel.categoryViewOpened {
+                        contentViewViewModel.closeCategoryView()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadCategory()
+                        }
+                    }
                 }
             )
+            if favouriteWallsStore.walls.count > 0 {
+                DrawerItem(
+                    icon: "heart.fill",
+                    name: "Favourites",
+                    active: contentViewViewModel.favouriteWallsViewOpened,
+                    onClick: {
+                        apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
+                        contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.homeViewOpened {
+                            contentViewViewModel.closeHomeView()
+                        }
+                        if contentViewViewModel.aboutViewOpened {
+                            contentViewViewModel.closeAboutView()
+                        }
+                        if contentViewViewModel.categoriesViewOpened {
+                            contentViewViewModel.closeCategoriesView()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            contentViewViewModel.openFavouriteWalls()
+                        }
+                        if contentViewViewModel.categoryViewOpened {
+                            contentViewViewModel.closeCategoryView()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                apiManager.unloadCategory()
+                            }
+                        }
+                    }
+                )
+            }
             DrawerItem(
                 icon: "info.circle.fill",
                 name: "About",
@@ -42,18 +87,81 @@ struct Drawer: View {
                     if contentViewViewModel.homeViewOpened {
                         contentViewViewModel.closeHomeView()
                     }
+                    if contentViewViewModel.categoriesViewOpened {
+                        contentViewViewModel.closeCategoriesView()
+                    }
+                    if contentViewViewModel.favouriteWallsViewOpened {
+                        contentViewViewModel.closeFavouriteWalls()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadFavouriteWalls()
+                        }
+                    }
+                    if contentViewViewModel.categoryViewOpened {
+                        contentViewViewModel.closeCategoryView()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadCategory()
+                        }
+                    }
                 }
             )
             DrawerItem(
                 icon: "filemenu.and.selection",
                 name: "Categories",
-                active: false,
-                onClick: {}
+                active: contentViewViewModel.categoriesViewOpened || contentViewViewModel.categoryViewOpened,
+                onClick: {
+                    contentViewViewModel.openCategoriesView()
+                    contentViewViewModel.closeSidebar()
+                    if contentViewViewModel.homeViewOpened {
+                        contentViewViewModel.closeHomeView()
+                    }
+                    if contentViewViewModel.aboutViewOpened {
+                        contentViewViewModel.closeAboutView()
+                    }
+                    if contentViewViewModel.favouriteWallsViewOpened {
+                        contentViewViewModel.closeFavouriteWalls()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadFavouriteWalls()
+                        }
+                    }
+                    if contentViewViewModel.categoryViewOpened {
+                        contentViewViewModel.closeCategoryView()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadCategory()
+                        }
+                    }
+                }
             )
             LazyVStack {
                 ForEach(apiManager.categories, id: \._id) { category in
                     Button {
-                        
+                        if contentViewViewModel.categoryViewOpened {
+                            contentViewViewModel.closeCategoryView()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                apiManager.unloadCategory()
+                            }
+                        }
+                        contentViewViewModel.closeSidebar()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.loadCategory(category: category)
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                            contentViewViewModel.openCategoryView()
+                        }
+                        if contentViewViewModel.homeViewOpened {
+                            contentViewViewModel.closeHomeView()
+                        }
+                        if contentViewViewModel.aboutViewOpened {
+                            contentViewViewModel.closeAboutView()
+                        }
+                        if contentViewViewModel.categoriesViewOpened {
+                            contentViewViewModel.closeCategoriesView()
+                        }
+                        if contentViewViewModel.favouriteWallsViewOpened {
+                            contentViewViewModel.closeFavouriteWalls()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                apiManager.unloadFavouriteWalls()
+                            }
+                        }
                     } label: {
                         Text(category.name)
                             .fontWeight(.light)
@@ -66,11 +174,11 @@ struct Drawer: View {
             }
             .padding(.vertical, 12)
             .background(Color.theme.bgTertiaryColor)
-            .cornerRadius(36)
+            .cornerRadius(36, corners: [.topLeft, .topRight, .bottomLeft])
         }
         .frame(minWidth: 0, maxWidth: 234, minHeight: 0, maxHeight: .infinity)
         .background(Color.theme.bgColor)
-        .offset(x: opened ? 0 : -234)
+        .offset(x: opened ? 0 : -UIScreen.screenWidth + contentViewViewModel.sidebarOffset)
         .animation(.spring().speed(1.5), value: opened)
     }
 }

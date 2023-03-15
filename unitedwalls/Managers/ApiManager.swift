@@ -11,9 +11,12 @@ class ApiManager: ObservableObject {
     @Published var loadingWalls: Bool
     @Published var walls: [Wall]
     @Published var modifiedWalls: [Wall] = []
+    @Published var modifiedFavouriteWalls: [Wall] = []
+    @Published var favouriteWalls: [Wall] = []
     @Published var loadingCategories: Bool
     @Published var categories: [Category]
     @Published var selectedCategory: Category?
+    @Published var modifiedSelectedCategoryWalls: [Wall] = []
     
     init() {
         self.loadingWalls = true
@@ -33,7 +36,6 @@ class ApiManager: ObservableObject {
                     let walls: [Wall] = []
                     DispatchQueue.main.async {
                         self.walls = walls
-                        self.loadingWalls = false
                     }
                     return
                 }
@@ -42,7 +44,6 @@ class ApiManager: ObservableObject {
                     let walls: [Wall] = []
                     DispatchQueue.main.async {
                         self.walls = walls
-                        self.loadingWalls = false
                     }
                     return
                 }
@@ -59,13 +60,19 @@ class ApiManager: ObservableObject {
                     let walls: [Wall] = []
                     DispatchQueue.main.async {
                         self.walls = walls
-                        self.loadingWalls = false
                     }
                     return
                 }
             }
             .resume()
         }
+    }
+    
+    private func loadWallById(wallId: String) -> Wall? {
+        guard let index = self.walls.firstIndex(where: {$0._id == wallId}) else {
+            return nil
+        }
+        return self.walls[index]
     }
     
     private func loadCategories() {
@@ -77,7 +84,6 @@ class ApiManager: ObservableObject {
                     let categories: [Category] = []
                     DispatchQueue.main.async {
                         self.categories = categories
-                        self.loadingCategories = false
                     }
                     return
                 }
@@ -86,12 +92,9 @@ class ApiManager: ObservableObject {
                     let categories: [Category] = []
                     DispatchQueue.main.async {
                         self.categories = categories
-                        self.loadingCategories = false
                     }
                     return
                 }
-                
-               
                 
                 do {
                     let json = try JSONDecoder().decode([Category].self, from: data)
@@ -105,7 +108,6 @@ class ApiManager: ObservableObject {
                     let categories: [Category] = []
                     DispatchQueue.main.async {
                         self.categories = categories
-                        self.loadingCategories = false
                     }
                     return
                 }
@@ -114,11 +116,51 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func loadWallScreenWalls() {
-        self.modifiedWalls = self.walls
+    func loadWallScreenSelectedCategoryWalls(walls: [Wall]) {
+        self.modifiedSelectedCategoryWalls = walls
+    }
+    
+    func unloadWallScreenSelectedCategoryWalls() {
+        self.modifiedSelectedCategoryWalls = []
+    }
+    
+    func loadWallScreenFavouriteWalls(walls: [Wall]) {
+        self.modifiedFavouriteWalls = walls
+    }
+    
+    func unloadWallScreenFavouriteWalls() {
+        self.modifiedFavouriteWalls = []
+    }
+    
+    func loadWallScreenWalls(walls: [Wall]) {
+        self.modifiedWalls = walls
     }
     
     func unloadWallScreenWalls() {
         self.modifiedWalls = []
+    }
+    
+    func loadFavouriteWalls(wallIds: [String]) {
+        self.favouriteWalls = []
+        for id in wallIds {
+            guard let wall = loadWallById(wallId: id) else {
+                break
+            }
+            print(wall)
+            print(id)
+            self.favouriteWalls.append(wall)
+        }
+    }
+    
+    func unloadFavouriteWalls() {
+        self.favouriteWalls = []
+    }
+    
+    func loadCategory(category: Category) {
+        self.selectedCategory = category
+    }
+    
+    func unloadCategory() {
+        self.selectedCategory = nil
     }
 }

@@ -1,14 +1,14 @@
 //
-//  WallScreenView.swift
+//  FavouriteWallScreenView.swift
 //  unitedwalls
 //
-//  Created by Paras KCD on 2023-03-08.
+//  Created by Paras KCD on 2023-03-13.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WallScreenView: View {
+struct FavouriteWallScreenView: View {
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
@@ -24,7 +24,7 @@ struct WallScreenView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             TabView(selection: $contentViewViewModel.wallIndex) {
-                ForEach(Array(apiManager.modifiedWalls.enumerated()), id: \.element._id) { index, wall in
+                ForEach(Array(apiManager.modifiedFavouriteWalls.enumerated()), id: \.element._id) { index, wall in
                     WebImage(url: URL(string: wall.file_url))
                         .purgeable(true)
                         .resizable()
@@ -42,10 +42,10 @@ struct WallScreenView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .onChange(of: contentViewViewModel.wallIndex) { index in
-                selectedWall = apiManager.modifiedWalls[index]
+                selectedWall = apiManager.modifiedFavouriteWalls[index]
             }
             .onAppear {
-                selectedWall = apiManager.modifiedWalls[contentViewViewModel.wallIndex]
+                selectedWall = apiManager.modifiedFavouriteWalls[contentViewViewModel.wallIndex]
             }
             
             VStack(alignment: .center) {
@@ -143,6 +143,7 @@ struct WallScreenView: View {
                                 fatalError(error.localizedDescription)
                             }
                         }
+                        apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                     } label: {
                         Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
                             .resizable()
@@ -166,6 +167,7 @@ struct WallScreenView: View {
                                 fatalError(error.localizedDescription)
                             }
                         }
+                        apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                     } label: {
                         Image(systemName: "heart")
                             .resizable()
@@ -283,7 +285,7 @@ struct WallScreenView: View {
             .offset(y: -72)
             
             Color.black.opacity(loading ? 0.75 : 0)
-            
+
             if loading {
                 VStack {
                     ProgressView()
@@ -292,11 +294,11 @@ struct WallScreenView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .offset(y: contentViewViewModel.wallScreenViewOpened ? offset.height : offset.height < 0 ? -UIScreen.screenHeight : UIScreen.screenHeight)
+        .offset(y: contentViewViewModel.favouriteWallScreenViewOpened ? offset.height : offset.height < 0 ? -UIScreen.screenHeight : UIScreen.screenHeight)
         .animation(.interactiveSpring(), value: offset)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.theme.bgColor)
-        .opacity(contentViewViewModel.wallScreenViewOpened ? 1 : 0)
+        .opacity(contentViewViewModel.favouriteWallScreenViewOpened ? 1 : 0)
         .simultaneousGesture(
             DragGesture()
                 .onChanged { gesture in
@@ -306,16 +308,20 @@ struct WallScreenView: View {
                 }
                 .onEnded { _ in
                     if abs(offset.height) > 100 {
-                        contentViewViewModel.closeWallScreenView()
+                        contentViewViewModel.closeFavouriteWallScreenView()
                         contentViewViewModel.changeOpacity(opacity: 0)
+                        if favouriteWallsStore.walls.count == 0 {
+                            contentViewViewModel.closeFavouriteWalls()
+                            contentViewViewModel.openHomeView()
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            apiManager.unloadWallScreenWalls()
+                            apiManager.unloadWallScreenFavouriteWalls()
                         }
                     } else {
                         offset = .zero
                     }
                 }
         )
-        .animation(.spring(), value: contentViewViewModel.wallScreenViewOpened)
+        .animation(.spring(), value: contentViewViewModel.favouriteWallScreenViewOpened)
     }
 }
