@@ -17,6 +17,8 @@ class ApiManager: ObservableObject {
     @Published var categories: [Category]
     @Published var selectedCategory: Category?
     @Published var modifiedSelectedCategoryWalls: [Wall] = []
+    @Published var wallTotalCount: Int = 0
+    private var page = 0
     
     init() {
         self.loadingWalls = true
@@ -25,10 +27,37 @@ class ApiManager: ObservableObject {
         self.categories = []
         self.loadWalls()
         self.loadCategories()
+        self.loadWallCount()
     }
     
-    private func loadWalls() {
-        let url = Constants.wallApiURL
+    func loadWallCount() {
+        let url = URL(string: "http://unitedwalls.ddns.net:5002/api/walls/count")
+        if (url != nil) {
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                do {
+                    let json = try JSONDecoder().decode(Int.self, from: data)
+                    self.wallTotalCount = json
+                } catch {
+                    print(error)
+                    return
+                }
+            }
+            .resume()
+        }
+    }
+    
+    func loadWalls() {
+        self.loadingWalls = true
+        let url = URL(string: "http://unitedwalls.ddns.net:5002/api/walls/queries?page=\(self.page)")
         if (url != nil) {
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) { [self] data, res, err in
@@ -50,10 +79,10 @@ class ApiManager: ObservableObject {
                 
                 do {
                     let json = try JSONDecoder().decode([Wall].self, from: data)
-                    let walls = json
                     DispatchQueue.main.async {
-                        self.walls = walls
+                        self.walls.append(contentsOf: json)
                         self.loadingWalls = false
+                        self.page += 1
                     }
                 } catch {
                     print(error)

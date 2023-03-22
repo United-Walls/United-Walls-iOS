@@ -131,50 +131,55 @@ struct Drawer: View {
                     }
                 }
             )
-            LazyVStack {
-                ForEach(apiManager.categories, id: \._id) { category in
-                    Button {
-                        if contentViewViewModel.categoryViewOpened {
-                            contentViewViewModel.closeCategoryView()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                apiManager.unloadCategory()
+            if apiManager.loadingCategories {
+                ProgressView()
+                    .padding()
+            } else {
+                LazyVStack {
+                    ForEach(apiManager.categories, id: \._id) { category in
+                        Button {
+                            if contentViewViewModel.categoryViewOpened {
+                                contentViewViewModel.closeCategoryView()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    apiManager.unloadCategory()
+                                }
                             }
-                        }
-                        contentViewViewModel.closeSidebar()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            apiManager.loadCategory(category: category)
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            contentViewViewModel.openCategoryView()
-                        }
-                        if contentViewViewModel.homeViewOpened {
-                            contentViewViewModel.closeHomeView()
-                        }
-                        if contentViewViewModel.aboutViewOpened {
-                            contentViewViewModel.closeAboutView()
-                        }
-                        if contentViewViewModel.categoriesViewOpened {
-                            contentViewViewModel.closeCategoriesView()
-                        }
-                        if contentViewViewModel.favouriteWallsViewOpened {
-                            contentViewViewModel.closeFavouriteWalls()
+                            contentViewViewModel.closeSidebar()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                apiManager.unloadFavouriteWalls()
+                                apiManager.loadCategory(category: category)
                             }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                contentViewViewModel.openCategoryView()
+                            }
+                            if contentViewViewModel.homeViewOpened {
+                                contentViewViewModel.closeHomeView()
+                            }
+                            if contentViewViewModel.aboutViewOpened {
+                                contentViewViewModel.closeAboutView()
+                            }
+                            if contentViewViewModel.categoriesViewOpened {
+                                contentViewViewModel.closeCategoriesView()
+                            }
+                            if contentViewViewModel.favouriteWallsViewOpened {
+                                contentViewViewModel.closeFavouriteWalls()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    apiManager.unloadFavouriteWalls()
+                                }
+                            }
+                        } label: {
+                            Text(category.name)
+                                .fontWeight(.light)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 36)
+                                .padding(12)
                         }
-                    } label: {
-                        Text(category.name)
-                            .fontWeight(.light)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 36)
-                            .padding(12)
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
+                .padding(.vertical, 12)
+                .background(Color.theme.bgTertiaryColor)
+                .cornerRadius(36, corners: [.topLeft, .topRight, .bottomLeft])
             }
-            .padding(.vertical, 12)
-            .background(Color.theme.bgTertiaryColor)
-            .cornerRadius(36, corners: [.topLeft, .topRight, .bottomLeft])
         }
         .frame(minWidth: 0, maxWidth: 234, minHeight: 0, maxHeight: .infinity)
         .background(Color.theme.bgColor)

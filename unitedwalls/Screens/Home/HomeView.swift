@@ -36,6 +36,13 @@ struct HomeView: View {
                     }
                     .buttonStyle(.plain)
                     .contentShape(Rectangle())
+                    .onAppear {
+                        if apiManager.walls.count != apiManager.wallTotalCount {
+                            if index == apiManager.walls.count - 5 {
+                                apiManager.loadWalls()
+                            }
+                        }
+                    }
                     if index % 4 == 0 && index > 0 {
                         #if DEBUG
                         VStack {
@@ -50,6 +57,13 @@ struct HomeView: View {
                         }
                         .frame(width: UIScreen.screenWidth, height: 70)
                         #endif
+                    }
+                    if apiManager.loadingWalls {
+                        VStack {
+                            Spacer()
+                            ProgressView().padding()
+                        }
+                        .frame(width: UIScreen.screenWidth, height: 70)
                     }
                 }
             }
