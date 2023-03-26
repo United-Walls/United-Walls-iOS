@@ -14,7 +14,7 @@ struct CategoryWallScreenView: View {
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     
     @State var showInfo: Bool = false
-    @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", file_name: "", file_url: "", mime_type: "", updatedAt: "", addedBy: "")
+    @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
     @State private var offset: CGSize = .zero
     @State private var currentImage: UIImage?
     @State private var saved: Bool = false

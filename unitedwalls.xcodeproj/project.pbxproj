@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */; };
 		E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A08E29B9FE6700C14423 /* AboutView.swift */; };
 		E661A09129B9FEB900C14423 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A09029B9FEB900C14423 /* Container.swift */; };
 		E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCCF29B9772E00BA2328 /* unitedwallsApp.swift */; };
@@ -37,6 +38,7 @@
 		E6923EAF29BFCCC600EE7B8E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */; };
 		E6923EB129BFD19200EE7B8E /* CategoryWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */; };
 		E6923EB329C0728300EE7B8E /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB229C0728300EE7B8E /* PinchToZoom.swift */; };
+		E6CC139829D0A8B700853989 /* PrivacyPolicyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC139729D0A8B600853989 /* PrivacyPolicyStore.swift */; };
 		E6FD20D229C1E0F70058A008 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = E6FD20D129C1E0F70058A008 /* GoogleMobileAds */; };
 		E6FD20DD29C1E7110058A008 /* SwiftUIBannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothAsyncImage.swift; sourceTree = "<group>"; };
 		E661A08E29B9FE6700C14423 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E661A09029B9FEB900C14423 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		E68FBCCC29B9772E00BA2328 /* unitedwalls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unitedwalls.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +89,7 @@
 		E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryWallScreenView.swift; sourceTree = "<group>"; };
 		E6923EB229C0728300EE7B8E /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
+		E6CC139729D0A8B600853989 /* PrivacyPolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyStore.swift; sourceTree = "<group>"; };
 		E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBannerAd.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +174,7 @@
 			children = (
 				E68FBCE429B978C800BA2328 /* Constants.swift */,
 				E6923EB229C0728300EE7B8E /* PinchToZoom.swift */,
+				E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				E6923EA329BF513D00EE7B8E /* FavouriteWallsStore.swift */,
+				E6CC139729D0A8B600853989 /* PrivacyPolicyStore.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 				E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */,
 				E6923E9229BB65D400EE7B8E /* View.swift in Sources */,
 				E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */,
+				E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */,
 				E6923EAC29BFBEFE00EE7B8E /* CategoriesView.swift in Sources */,
 				E68FBCF529B97B4D00BA2328 /* ApiManager.swift in Sources */,
 				E68FBCFA29B97D0D00BA2328 /* Drawer.swift in Sources */,
@@ -384,6 +391,7 @@
 				E68FBCF229B97B1B00BA2328 /* UIScreen.swift in Sources */,
 				E68FBCDF29B9788200BA2328 /* Wall.swift in Sources */,
 				E68FBCF029B97B0700BA2328 /* Color.swift in Sources */,
+				E6CC139829D0A8B700853989 /* PrivacyPolicyStore.swift in Sources */,
 				E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */,
 				E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */,
 				E6923EA729BF5F2100EE7B8E /* FavouriteWallsView.swift in Sources */,

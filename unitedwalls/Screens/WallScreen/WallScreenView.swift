@@ -14,7 +14,7 @@ struct WallScreenView: View {
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     
     @State var showInfo: Bool = false
-    @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", file_name: "", file_url: "", mime_type: "", updatedAt: "", addedBy: "")
+    @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
     @State private var offset: CGSize = .zero
     @State private var currentImage: UIImage?
     @State private var saved: Bool = false
@@ -167,7 +167,7 @@ struct WallScreenView: View {
                             }
                         }
                     } label: {
-                        Image(systemName: "heart")
+                        Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 18, height: 18)

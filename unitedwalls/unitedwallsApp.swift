@@ -46,6 +46,7 @@ struct unitedwallsApp: App {
                         case .failure(let error):
                             fatalError(error.localizedDescription)
                         case .success(let walls):
+                            print(walls)
                             favouriteWallsStore.walls = walls
                         }
                     }

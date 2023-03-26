@@ -53,6 +53,11 @@ struct ContentView: View {
                     contentViewViewModel.changeOffset(offset: 0)
                 }
             }
+            #if DEBUG
+            SwiftUIBannerAd(adPosition: .bottom, adUnitId: "ca-app-pub-3940256099942544/2934735716")
+            #else
+            SwiftUIBannerAd(adPosition: .bottom, adUnitId: "ca-app-pub-2689519261612254/7839260675")
+            #endif
             Drawer(opened: contentViewViewModel.sidebarOpened)
             if apiManager.modifiedWalls.count > 0 {
                 WallScreenView()
@@ -63,11 +68,6 @@ struct ContentView: View {
             if apiManager.modifiedSelectedCategoryWalls.count > 0 {
                 CategoryWallScreenView()
             }
-            #if DEBUG
-            SwiftUIBannerAd(adPosition: .bottom, adUnitId: "ca-app-pub-3940256099942544/2934735716")
-            #else
-            SwiftUIBannerAd(adPosition: .bottom, adUnitId: "ca-app-pub-2689519261612254/7839260675")
-            #endif
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(Color.theme.bgTertiaryColor)

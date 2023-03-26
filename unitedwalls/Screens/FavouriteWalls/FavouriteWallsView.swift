@@ -15,7 +15,11 @@ struct FavouriteWallsView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 6) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                Spacer()
+                    .frame(height: 120)
+                Spacer()
+                    .frame(height: 120)
                 ForEach(Array(apiManager.favouriteWalls.enumerated()), id:\.element._id) { index, wall in
                     Button {
                         apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
@@ -25,15 +29,19 @@ struct FavouriteWallsView: View {
                             contentViewViewModel.openFavouriteWallScreenView()
                         }
                     } label: {
-                        WebImage(url: URL(string: wall.file_url))
+                        WebImage(url: URL(string: wall.thumbnail_url))
+                            .cancelOnDisappear(true)
+                            .purgeable(true)
+                            .retryOnAppear(true)
                             .resizable()
                             .indicator(.activity)
                             .transition(.fade(duration: 0.5))
                             .scaledToFill()
-                            .frame(width: UIScreen.screenWidth, height: 420, alignment: .center)
+                            .frame(height: 200)
                             .background(Color.theme.bgTertiaryColor)
                             .cornerRadius(18)
-                            
+                            .padding(.leading, index % 2 == 0 ? 10 : 0)
+                            .padding(.trailing, index % 2 != 0 ? 10 : 0)
                     }
                     .buttonStyle(.plain)
                     .contentShape(Rectangle())

@@ -28,7 +28,7 @@ struct CategoriesView: View {
                         }
                     } label: {
                         ZStack(alignment: .center) {
-                            WebImage(url: URL(string: category.walls[0].file_url))
+                            WebImage(url: URL(string: category.walls[0].thumbnail_url))
                                 .resizable()
                                 .indicator(.activity)
                                 .transition(.fade(duration: 0.5))
