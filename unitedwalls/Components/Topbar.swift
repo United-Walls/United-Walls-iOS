@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Topbar: View {
+    @EnvironmentObject var privacyPolicyStore: PrivacyPolicyStore
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     var toggleSidebar: () -> Void
     @Environment(\.colorScheme) var colorScheme
@@ -16,17 +17,24 @@ struct Topbar: View {
         VStack(spacing: 0) {
             Color.theme.bgColor.frame(height: 20)
             HStack {
-                Button {
-                    toggleSidebar()
-                } label: {
-                    Image(colorScheme == .light ? "MenuLight" : "MenuDark")
-                        .resizable()
-                        .scaledToFit()
+                if privacyPolicyStore.accepted {
+                    Button {
+                        DispatchQueue.main.async {
+                            toggleSidebar()
+                        }
+                    } label: {
+                        Image(colorScheme == .light ? "MenuLight" : "MenuDark")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(width: 24, height: 24)
+                    .buttonStyle(.plain)
+                    .padding(.leading, 24)
+                } else {
+                    Spacer()
+                        .frame(width: 24, height: 24)
+                        .padding(.leading, 24)
                 }
-                .frame(width: 24, height: 24)
-                .buttonStyle(.plain)
-                .padding(.leading, 24)
-                
                 Text("United Walls")
                     .frame(minWidth: UIScreen.screenWidth - (24 + 18), alignment: .center)
                     .offset(x: -24)

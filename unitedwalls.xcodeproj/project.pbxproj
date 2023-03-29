@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */; };
+		E6541C0529D1DAAA00A4F6C2 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */; };
 		E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A08E29B9FE6700C14423 /* AboutView.swift */; };
 		E661A09129B9FEB900C14423 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A09029B9FEB900C14423 /* Container.swift */; };
 		E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68FBCCF29B9772E00BA2328 /* unitedwallsApp.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothAsyncImage.swift; sourceTree = "<group>"; };
+		E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		E661A08E29B9FE6700C14423 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		E661A09029B9FEB900C14423 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		E68FBCCC29B9772E00BA2328 /* unitedwalls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unitedwalls.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E6541C0329D1DA8200A4F6C2 /* PrivacyPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */,
+			);
+			path = PrivacyPolicy;
+			sourceTree = "<group>";
+		};
 		E661A08D29B9FE4700C14423 /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +231,7 @@
 		E68FBCFD29B9816300BA2328 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E6541C0329D1DA8200A4F6C2 /* PrivacyPolicy */,
 				E6923EAD29BFCCB500EE7B8E /* Category */,
 				E6923EAA29BFBEDC00EE7B8E /* Categories */,
 				E6923EA529BF5F0B00EE7B8E /* FavouriteWalls */,
@@ -373,6 +384,7 @@
 				E6923EA929BFAE0C00EE7B8E /* FavouriteWallScreenView.swift in Sources */,
 				E661A09129B9FEB900C14423 /* Container.swift in Sources */,
 				E68FBD0029B9818100BA2328 /* HomeView.swift in Sources */,
+				E6541C0529D1DAAA00A4F6C2 /* PrivacyPolicyView.swift in Sources */,
 				E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */,
 				E68FBCF729B97C6100BA2328 /* ContentViewViewModel.swift in Sources */,
 				E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */,

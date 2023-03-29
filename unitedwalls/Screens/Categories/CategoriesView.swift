@@ -21,10 +21,12 @@ struct CategoriesView: View {
                     .frame(height: 120)
                 ForEach(Array(apiManager.categories.enumerated()), id: \.element._id) { index, category in
                     Button {
-                        contentViewViewModel.closeCategoriesView()
-                        apiManager.loadCategory(category: category)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            contentViewViewModel.openCategoryView()
+                        DispatchQueue.main.async {
+                            contentViewViewModel.closeCategoriesView()
+                            apiManager.loadCategory(category: category)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                contentViewViewModel.openCategoryView()
+                            }
                         }
                     } label: {
                         ZStack(alignment: .center) {
@@ -51,7 +53,7 @@ struct CategoriesView: View {
                                     .cornerRadius(18)
                             }
                         }
-                        .padding(.leading, index == 0 || index % 2 == 0 ? 10 : 0)
+                        .padding(.leading, index % 2 == 0 ? 10 : 0)
                         .padding(.trailing, index % 2 != 0 ? 10 : 0)
                     }
                     .buttonStyle(.plain)
@@ -61,13 +63,13 @@ struct CategoriesView: View {
                     }))
                 }
                 Spacer()
-                    .frame(height: 12)
+                    .frame(height: 80)
                 Spacer()
-                    .frame(height: 12)
+                    .frame(height: 80)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.categoriesViewOpened ? 0 : -UIScreen.screenWidth)
+        .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
+        .offset(x: contentViewViewModel.categoriesViewOpened ? 18 : -UIScreen.screenWidth)
         .opacity(contentViewViewModel.categoriesViewOpened ? 1 : 0)
         .animation(.spring(), value: contentViewViewModel.categoriesViewOpened)
     }

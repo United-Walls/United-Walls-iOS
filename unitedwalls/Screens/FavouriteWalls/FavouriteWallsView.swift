@@ -22,11 +22,13 @@ struct FavouriteWallsView: View {
                     .frame(height: 120)
                 ForEach(Array(apiManager.favouriteWalls.enumerated()), id:\.element._id) { index, wall in
                     Button {
-                        apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
-                        contentViewViewModel.changeWallIndex(index: index)
-                        contentViewViewModel.changeOpacity(opacity: 0.75)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            contentViewViewModel.openFavouriteWallScreenView()
+                        DispatchQueue.main.async {
+                            apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
+                            contentViewViewModel.changeWallIndex(index: index)
+                            contentViewViewModel.changeOpacity(opacity: 0.75)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                contentViewViewModel.openFavouriteWallScreenView()
+                            }
                         }
                     } label: {
                         WebImage(url: URL(string: wall.thumbnail_url))
@@ -49,10 +51,14 @@ struct FavouriteWallsView: View {
                         //do nothing
                     }))
                 }
+                Spacer()
+                    .frame(height: 90)
+                Spacer()
+                    .frame(height: 90)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.favouriteWallsViewOpened ? 0 : -UIScreen.screenWidth)
+        .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
+        .offset(x: contentViewViewModel.favouriteWallsViewOpened ? 18 : -UIScreen.screenWidth)
         .opacity(contentViewViewModel.favouriteWallsViewOpened ? 1 : 0)
         .animation(.spring(), value: contentViewViewModel.favouriteWallsViewOpened)
     }

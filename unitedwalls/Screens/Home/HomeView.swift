@@ -12,6 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
+    @Environment(\.scenePhase) var scenePhase
     
     @State var loading = false
     @State private var saved: Bool = false
@@ -27,11 +28,13 @@ struct HomeView: View {
                         .frame(height: 120)
                     ForEach(Array(apiManager.walls.enumerated()), id:\.element._id) { index, wall in
                         Button {
-                            apiManager.loadWallScreenWalls(walls: apiManager.walls)
-                            contentViewViewModel.changeWallIndex(index: index)
-                            contentViewViewModel.changeOpacity(opacity: 0.75)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                contentViewViewModel.openWallScreenView()
+                            DispatchQueue.main.async {
+                                apiManager.loadWallScreenWalls(walls: apiManager.walls)
+                                contentViewViewModel.changeWallIndex(index: index)
+                                contentViewViewModel.changeOpacity(opacity: 0.75)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    contentViewViewModel.openWallScreenView()
+                                }
                             }
                         } label: {
                             WebImage(url: URL(string: wall.thumbnail_url))
@@ -56,7 +59,7 @@ struct HomeView: View {
                             }
                             if apiManager.walls.count != apiManager.wallTotalCount {
                                 if index == apiManager.walls.count - 5 {
-                                    apiManager.loadWalls()
+                                    apiManager.loadWalls(initialize: false)
                                     SDImageCache.shared.clearMemory()
                                 }
                             }
@@ -106,6 +109,10 @@ struct HomeView: View {
                         }
                         .frame(width: UIScreen.screenWidth, height: 70)
                     }
+                    Spacer()
+                        .frame(height: 90)
+                    Spacer()
+                        .frame(height: 90)
                 }
             }
             
@@ -123,9 +130,14 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.homeViewOpened ? 0 : -UIScreen.screenWidth)
+        .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
+        .offset(x: contentViewViewModel.homeViewOpened ? 18 : -UIScreen.screenWidth)
         .opacity(contentViewViewModel.homeViewOpened ? 1 : 0)
         .animation(.spring(), value: contentViewViewModel.homeViewOpened)
+        .onChange(of: scenePhase) { newValue in
+            if newValue == .inactive {
+                apiManager.loadWalls(initialize: true)
+            }
+        }
     }
 }

@@ -1,20 +1,53 @@
 //
-//  AboutView.swift
+//  PrivacyPolicyView.swift
 //  unitedwalls
 //
-//  Created by Paras KCD on 2023-03-09.
+//  Created by Paras KCD on 2023-03-27.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct AboutView: View {
-    @EnvironmentObject var contentViewViewModel: ContentViewViewModel
-    
+struct PrivacyPolicyView: View {
+    @EnvironmentObject var privacyPolicyStore: PrivacyPolicyStore
     var body: some View {
         ScrollView {
             Spacer()
                 .frame(height: 114)
+            Container {
+                Text("Privacy Policy")
+                    .font(Font.title)
+                Text("In order to be able to use the App, you need to Accept our Privacy Policy.")
+            }
+            Container {
+                HStack {
+                    Button("View\nPrivacy Policy") {
+                        UIApplication.shared.open(URL(string: "https://united-walls.github.io/Privacy-Policy")!)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(5)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 150)
+                    .background(Color.theme.bgTertiaryColor)
+                    .cornerRadius(18)
+                    Button("Accept\nPrivacy Policy") {
+                        privacyPolicyStore.save(accepted: true) { result in
+                            switch result {
+                            case .failure(let error):
+                                fatalError(error.localizedDescription)
+                            case .success(let accepted):
+                                privacyPolicyStore.accepted = accepted
+                            }
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .padding(5)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 150)
+                    .background(Color.theme.bgTertiaryColor)
+                    .cornerRadius(18)
+                }
+            }
             Container {
                 Text("About")
                     .font(Font.title)
@@ -85,13 +118,10 @@ struct AboutView: View {
                     UIApplication.shared.open(URL(string: "https://t.me/unitedsetups")!)
                 }
             }
-            Spacer()
-                .frame(height: 75)
         }
-        .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.aboutViewOpened ? 18 : -UIScreen.screenWidth)
-        .opacity(contentViewViewModel.aboutViewOpened ? 1 : 0)
-        .animation(.spring(), value: contentViewViewModel.aboutViewOpened)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .offset(x: !privacyPolicyStore.accepted ? 0 : -UIScreen.screenWidth)
+        .opacity(!privacyPolicyStore.accepted ? 1 : 0)
+        .animation(.spring(), value: !privacyPolicyStore.accepted)
     }
 }
-

@@ -100,9 +100,6 @@ struct WallScreenView: View {
                 if #available(iOS 15.0, *) {
                     Button {
                         showInfo = !showInfo
-                        print(favouriteWallsStore.walls)
-                        print(selectedWall)
-                        print(favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}))
                     } label: {
                         Image(systemName: !showInfo ? "info.circle" : "info.circle.fill")
                             .resizable()
@@ -278,7 +275,7 @@ struct WallScreenView: View {
                     .cornerRadius(100)
                 }
             }
-            .padding(.trailing, 24)
+            .padding(.trailing, 42)
             .padding(.bottom, 18)
             .offset(y: -72)
             

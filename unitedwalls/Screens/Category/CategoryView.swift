@@ -22,11 +22,13 @@ struct CategoryView: View {
                 if apiManager.selectedCategory != nil {
                     ForEach(Array(apiManager.selectedCategory!.walls.enumerated()), id:\.element._id) { index, wall in
                         Button {
-                            apiManager.loadWallScreenSelectedCategoryWalls(walls: apiManager.selectedCategory!.walls)
-                            contentViewViewModel.changeWallIndex(index: index)
-                            contentViewViewModel.changeOpacity(opacity: 0.75)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                contentViewViewModel.openCategoryWallScreenView()
+                            DispatchQueue.main.async {
+                                apiManager.loadWallScreenSelectedCategoryWalls(walls: apiManager.selectedCategory!.walls)
+                                contentViewViewModel.changeWallIndex(index: index)
+                                contentViewViewModel.changeOpacity(opacity: 0.75)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    contentViewViewModel.openCategoryWallScreenView()
+                                }
                             }
                         } label: {
                             WebImage(url: URL(string: wall.thumbnail_url))
@@ -50,10 +52,14 @@ struct CategoryView: View {
                         }))
                     }
                 }
+                Spacer()
+                    .frame(height: 90)
+                Spacer()
+                    .frame(height: 90)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.categoryViewOpened ? 0 : -UIScreen.screenWidth)
+        .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
+        .offset(x: contentViewViewModel.categoryViewOpened ? 18 : -UIScreen.screenWidth)
         .opacity(contentViewViewModel.categoryViewOpened ? 1 : 0)
         .animation(.spring(), value: contentViewViewModel.categoryViewOpened)
     }

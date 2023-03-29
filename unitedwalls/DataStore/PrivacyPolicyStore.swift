@@ -11,14 +11,25 @@ import SwiftUI
 class PrivacyPolicyStore: ObservableObject {
     @Published var accepted: Bool = false
     
-    private static func fileURL() throws -> URL {
+    init() {
+        self.load { result in
+            switch result {
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            case .success(let accepted):
+                self.accepted = accepted
+            }
+        }
+    }
+    
+    private func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("privacyPolicy.unitedwalls")
     }
     
-    static func load(completion: @escaping (Result<Bool, Error>)->Void) {
+    func load(completion: @escaping (Result<Bool, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
-                let fileURL = try fileURL()
+                let fileURL = try self.fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
                         completion(.success(false))
@@ -38,10 +49,10 @@ class PrivacyPolicyStore: ObservableObject {
         }
     }
     
-    static func save(accepted: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func save(accepted: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         do {
             let data = try JSONEncoder().encode(accepted)
-            let outfile = try fileURL()
+            let outfile = try self.fileURL()
             try data.write(to: outfile)
             DispatchQueue.main.async {
                 completion(.success(accepted))

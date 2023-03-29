@@ -25,7 +25,7 @@ class ApiManager: ObservableObject {
         self.walls = []
         self.loadingCategories = true
         self.categories = []
-        self.loadWalls()
+        self.loadWalls(initialize: true)
         self.loadCategories()
         self.loadWallCount()
     }
@@ -55,7 +55,11 @@ class ApiManager: ObservableObject {
         }
     }
     
-    func loadWalls() {
+    func loadWalls(initialize: Bool?) {
+        if initialize == true {
+            self.page = 0
+            self.walls = []
+        }
         self.loadingWalls = true
         let url = URL(string: "http://unitedwalls.ddns.net:5002/api/walls/queries?page=\(self.page)")
         if (url != nil) {
@@ -175,8 +179,6 @@ class ApiManager: ObservableObject {
             guard let wall = loadWallById(wallId: id) else {
                 break
             }
-            print(wall)
-            print(id)
             self.favouriteWalls.append(wall)
         }
     }

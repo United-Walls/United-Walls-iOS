@@ -14,6 +14,7 @@ struct unitedwallsApp: App {
     @StateObject var apiManager = ApiManager()
     @StateObject var contentViewViewModel: ContentViewViewModel = ContentViewViewModel()
     @StateObject var favouriteWallsStore = FavouriteWallsStore()
+    @StateObject var privacyPolicyStore = PrivacyPolicyStore()
     
     init() {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.theme.textColor)
@@ -40,13 +41,13 @@ struct unitedwallsApp: App {
                 .environmentObject(apiManager)
                 .environmentObject(contentViewViewModel)
                 .environmentObject(favouriteWallsStore)
+                .environmentObject(privacyPolicyStore)
                 .onAppear {
                     FavouriteWallsStore.load { result in
                         switch result {
                         case .failure(let error):
                             fatalError(error.localizedDescription)
                         case .success(let walls):
-                            print(walls)
                             favouriteWallsStore.walls = walls
                         }
                     }
