@@ -31,7 +31,7 @@ class ApiManager: ObservableObject {
     }
     
     func loadWallCount() {
-        let url = URL(string: "http://unitedwalls.ddns.net:5002/api/walls/count")
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/count")
         if (url != nil) {
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) { [self] data, res, err in
@@ -61,7 +61,7 @@ class ApiManager: ObservableObject {
             self.walls = []
         }
         self.loadingWalls = true
-        let url = URL(string: "http://unitedwalls.ddns.net:5002/api/walls/queries?page=\(self.page)")
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/queries?page=\(self.page)")
         if (url != nil) {
             let request = URLRequest(url: url!)
             URLSession.shared.dataTask(with: request) { [self] data, res, err in

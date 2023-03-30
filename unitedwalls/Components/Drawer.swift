@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct Drawer: View {
     var opened: Bool = false
@@ -27,6 +28,7 @@ struct Drawer: View {
                 active: contentViewViewModel.homeViewOpened,
                 onClick: {
                     DispatchQueue.main.async {
+                        SDImageCache.shared.clearMemory()
                         contentViewViewModel.openHomeView()
                         contentViewViewModel.closeSidebar()
                         if contentViewViewModel.aboutViewOpened {
@@ -57,6 +59,7 @@ struct Drawer: View {
                     active: contentViewViewModel.favouriteWallsViewOpened,
                     onClick: {
                         DispatchQueue.main.async {
+                            SDImageCache.shared.clearMemory()
                             apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                             contentViewViewModel.closeSidebar()
                             if contentViewViewModel.homeViewOpened {
@@ -87,6 +90,7 @@ struct Drawer: View {
                 active: contentViewViewModel.aboutViewOpened,
                 onClick: {
                     DispatchQueue.main.async {
+                        SDImageCache.shared.clearMemory()
                         contentViewViewModel.openAboutView()
                         contentViewViewModel.closeSidebar()
                         if contentViewViewModel.homeViewOpened {
@@ -116,6 +120,7 @@ struct Drawer: View {
                 active: contentViewViewModel.categoriesViewOpened || contentViewViewModel.categoryViewOpened,
                 onClick: {
                     DispatchQueue.main.async {
+                        SDImageCache.shared.clearMemory()
                         contentViewViewModel.openCategoriesView()
                         contentViewViewModel.closeSidebar()
                         if contentViewViewModel.homeViewOpened {
@@ -147,6 +152,7 @@ struct Drawer: View {
                     ForEach(apiManager.categories, id: \._id) { category in
                         Button {
                             DispatchQueue.main.async {
+                                SDImageCache.shared.clearMemory()
                                 if contentViewViewModel.categoryViewOpened {
                                     contentViewViewModel.closeCategoryView()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
