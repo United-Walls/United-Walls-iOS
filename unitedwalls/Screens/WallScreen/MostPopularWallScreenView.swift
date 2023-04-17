@@ -1,14 +1,14 @@
 //
-//  WallScreenView.swift
+//  MostPopularWallScreenView.swift
 //  unitedwalls
 //
-//  Created by Paras KCD on 2023-03-08.
+//  Created by Paras KCD on 2023-04-16.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WallScreenView: View {
+struct MostPopularWallScreenView: View {
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
@@ -53,7 +53,7 @@ struct WallScreenView: View {
                 .animation(.easeInOut, value: changeOpacity)
             
             TabView(selection: $contentViewViewModel.wallIndex) {
-                ForEach(Array(apiManager.modifiedWalls.enumerated()), id: \.element._id) { index, wall in
+                ForEach(Array(apiManager.mostDownloadedWalls.enumerated()), id: \.element._id) { index, wall in
                     WebImage(url: URL(string: wall.file_url))
                         .purgeable(true)
                         .resizable()
@@ -73,12 +73,13 @@ struct WallScreenView: View {
             .onChange(of: contentViewViewModel.wallIndex) { index in
                 self.changeOpacity = 0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    selectedWall = apiManager.modifiedWalls[index]
+                    selectedWall = apiManager.mostDownloadedWalls[index]
                     self.changeOpacity = 1
                 }
+                
             }
             .onAppear {
-                selectedWall = apiManager.modifiedWalls[contentViewViewModel.wallIndex]
+                selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
             }
             
             VStack(alignment: .center) {
@@ -146,6 +147,7 @@ struct WallScreenView: View {
                             self.apiManager.addToServer(wallId: selectedWall._id, api: "addFav")
                         }
                     }
+                    apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                 } label: {
                     Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
                         .resizable()
@@ -175,21 +177,22 @@ struct WallScreenView: View {
                     ShareSheet(photo: inputImage)
                 }
 
-                //Download Button
                 Button {
                     self.loading = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
-                        
-                        let imageSaver = PhotoManager(albumName: "United Walls")
-                        imageSaver.save(inputImage) { completed, error in
-                            if completed {
-                                self.loading = false
-                                saved = true
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                                    saved = false
-                                    self.apiManager.addToServer(wallId: selectedWall._id, api: "addDownloaded")
+                        DispatchQueue.main.async {
+                            let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                            
+                            let imageSaver = PhotoManager(albumName: "United Walls")
+                            imageSaver.save(inputImage) { completed, error in
+                                if completed {
+                                    self.loading = false
+                                    saved = true
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                        saved = false
+                                        self.apiManager.addToServer(wallId: selectedWall._id, api: "addDownloaded")
+                                    }
                                 }
                             }
                         }
@@ -210,7 +213,7 @@ struct WallScreenView: View {
             .offset(y: -72)
             
             Color.black.opacity(loading ? 0.75 : 0)
-            
+
             if loading {
                 VStack {
                     ProgressView()
@@ -223,6 +226,6 @@ struct WallScreenView: View {
         .animation(.interactiveSpring(), value: offset)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.ignoresSafeArea(.all))
-        .animation(.spring(), value: contentViewViewModel.wallScreenViewOpened)
+        .animation(.spring(), value: contentViewViewModel.mostLikedWallScreenViewOpened)
     }
 }

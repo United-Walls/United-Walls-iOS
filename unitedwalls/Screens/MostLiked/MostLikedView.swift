@@ -1,14 +1,14 @@
 //
-//  CategoryView.swift
+//  MostLikedView.swift
 //  unitedwalls
 //
-//  Created by Paras KCD on 2023-03-13.
+//  Created by Paras KCD on 2023-04-16.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct CategoryView: View {
+struct MostLikedView: View {
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @State private var showingSheet = false
@@ -19,18 +19,17 @@ struct CategoryView: View {
                 .frame(height: 120)
             
             HStack {
-                Text(apiManager.selectedCategory?.name ?? "Category")
+                Text("Most Liked")
                     .font(.title2)
                 Spacer()
             }
             .padding(.horizontal, 15)
-            
+
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                if apiManager.selectedCategory != nil {
-                    ForEach(Array(apiManager.selectedCategory!.walls.enumerated()), id:\.element._id) { index, wall in
+                if apiManager.mostFavouritedWalls.count != 0 {
+                    ForEach(Array(apiManager.mostFavouritedWalls.enumerated()), id:\.element._id) { index, wall in
                         Button {
                             DispatchQueue.main.async {
-                                apiManager.loadWallScreenSelectedCategoryWalls(walls: apiManager.selectedCategory!.walls)
                                 contentViewViewModel.changeWallIndex(index: index)
                                 contentViewViewModel.changeOpacity(opacity: 0.75)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -60,12 +59,8 @@ struct CategoryView: View {
                         .sheet(isPresented: $showingSheet, onDismiss: {
                             contentViewViewModel.changeWallIndex(index: 0)
                             contentViewViewModel.changeOpacity(opacity: 0)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                apiManager.unloadWallScreenSelectedCategoryWalls()
-                            }
-                            
                         }) {
-                            CategoryWallScreenView()
+                            MostLikedWallScreenView()
                         }
                     }
                 }
@@ -76,8 +71,8 @@ struct CategoryView: View {
             }
         }
         .frame(maxWidth: UIScreen.screenWidth - 5, maxHeight: .infinity)
-        .offset(x: contentViewViewModel.categoryViewOpened ? 18 : -UIScreen.screenWidth)
-        .opacity(contentViewViewModel.categoryViewOpened ? 1 : 0)
-        .animation(.spring(), value: contentViewViewModel.categoryViewOpened)
+        .offset(x: contentViewViewModel.mostLikedScreenOpened ? 18 : -UIScreen.screenWidth)
+        .opacity(contentViewViewModel.mostLikedScreenOpened ? 1 : 0)
+        .animation(.spring(), value: contentViewViewModel.mostLikedScreenOpened)
     }
 }

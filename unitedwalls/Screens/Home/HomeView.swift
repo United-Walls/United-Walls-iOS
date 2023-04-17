@@ -13,6 +13,10 @@ struct HomeView: View {
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     @Environment(\.scenePhase) var scenePhase
+    @State private var showingSheet = false
+    @State private var showingMostLikedSheet = false
+    @State private var showingMostPopularSheet = false
+    @State private var showingWallOfDaySheet = false
     
     @State var loading = false
     @State private var saved: Bool = false
@@ -21,19 +25,181 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             ScrollView {
+                Button {
+                    DispatchQueue.main.async {
+                        contentViewViewModel.changeOpacity(opacity: 0.75)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            showingWallOfDaySheet.toggle()
+                        }
+                    }
+                } label: {
+                    ZStack(alignment: .bottom) {
+                        WebImage(url: URL(string: apiManager.wallOfDay.file_url))
+                            .purgeable(true)
+                            .resizable()
+                            .indicator(.activity)
+                            .transition(.fade(duration: 0.5))
+                            .scaledToFill()
+                            .frame(height: 412)
+                            .background(Color.theme.bgTertiaryColor)
+                            .cornerRadius(18)
+                            .padding(.bottom, 6)
+                            .shadow(radius: 10, x: 0, y: 0)
+                        
+                        Rectangle().foregroundColor(Color.clear).background(LinearGradient(gradient: Gradient(colors: [Color.theme.bgColor.opacity(0.85), .clear]), startPoint: .bottom, endPoint: .top)).frame(maxWidth: .infinity).cornerRadius(18, corners: [.bottomRight, .bottomLeft])
+                        
+                        Text("Wall of the Day")
+                            .font(.title2)
+                            .padding(10)
+                            .padding(.bottom, 20)
+                    }
+                    .frame(height: 412)
+                    .sheet(isPresented: $showingWallOfDaySheet, onDismiss: {
+                        contentViewViewModel.changeOpacity(opacity: 0)
+                    }) {
+                        WallOfDayScreenView()
+                    }
+                }
+                if apiManager.mostFavouritedWalls.count > 0 {
+                    HStack {
+                        Text("Most Liked")
+                            .font(.title2)
+                        Spacer()
+                        Button {
+                            DispatchQueue.main.async {
+                                contentViewViewModel.closeHomeView()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    contentViewViewModel.openMostLikedScreenView()
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Text("Show more")
+                                Image(systemName: "chevron.right")
+                            }
+                            .padding(5)
+                            .padding(.horizontal, 10)
+                            .background(Color.theme.bgSecondaryColor)
+                            .cornerRadius(18)
+                        }
+                    }
+                    .padding(.horizontal, 15)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(Array(apiManager.mostFavouritedWalls.enumerated().prefix(5)), id: \.element._id) { index, wall in
+                                Button {
+                                    DispatchQueue.main.async {
+                                        contentViewViewModel.changeWallIndex(index: index)
+                                        contentViewViewModel.changeOpacity(opacity: 0.75)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            showingMostLikedSheet.toggle()
+                                        }
+                                    }
+                                } label: {
+                                    WebImage(url: URL(string: wall.thumbnail_url))
+                                        .purgeable(true)
+                                        .resizable()
+                                        .indicator(.activity)
+                                        .transition(.fade(duration: 0.5))
+                                        .scaledToFill()
+                                        .frame(width: 150, height: 240)
+                                        .background(Color.theme.bgTertiaryColor)
+                                        .cornerRadius(18)
+                                        .padding(.bottom, 6)
+                                        .shadow(radius: 10, x: 0, y: 0)
+                                        .padding(.leading, 10)
+                                        .padding([.bottom], 10)
+                                }
+                                .sheet(isPresented: $showingMostLikedSheet, onDismiss: {
+                                    contentViewViewModel.changeWallIndex(index: 0)
+                                    contentViewViewModel.changeOpacity(opacity: 0)
+                                }) {
+                                    MostLikedWallScreenView()
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if apiManager.mostDownloadedWalls.count > 0 {
+                    HStack {
+                        Text("Most Popular")
+                            .font(.title2)
+                        Spacer()
+                        Button {
+                            DispatchQueue.main.async {
+                                contentViewViewModel.closeHomeView()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    contentViewViewModel.openMostPopularScreenView()
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Text("Show more")
+                                Image(systemName: "chevron.right")
+                            }
+                            .padding(5)
+                            .padding(.horizontal, 10)
+                            .background(Color.theme.bgSecondaryColor)
+                            .cornerRadius(18)
+                        }
+                    }
+                    .padding(.horizontal, 15)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(Array(apiManager.mostDownloadedWalls.enumerated().prefix(5)), id: \.element._id) { index, wall in
+                                Button {
+                                    DispatchQueue.main.async {
+                                        contentViewViewModel.changeWallIndex(index: index)
+                                        contentViewViewModel.changeOpacity(opacity: 0.75)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            showingMostPopularSheet.toggle()
+                                        }
+                                    }
+                                } label: {
+                                    WebImage(url: URL(string: wall.thumbnail_url))
+                                        .purgeable(true)
+                                        .resizable()
+                                        .indicator(.activity)
+                                        .transition(.fade(duration: 0.5))
+                                        .scaledToFill()
+                                        .frame(width: 150, height: 240)
+                                        .background(Color.theme.bgTertiaryColor)
+                                        .cornerRadius(18)
+                                        .padding(.bottom, 6)
+                                        .shadow(radius: 10, x: 0, y: 0)
+                                        .padding(.leading, 10)
+                                        .padding([.bottom], 10)
+                                }
+                                .sheet(isPresented: $showingMostPopularSheet, onDismiss: {
+                                    contentViewViewModel.changeWallIndex(index: 0)
+                                    contentViewViewModel.changeOpacity(opacity: 0)
+                                }) {
+                                    MostPopularWallScreenView()
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                HStack {
+                    Text("All Wallpapers")
+                        .font(.title2)
+                    Spacer()
+                }
+                .padding(.horizontal, 15)
+                
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                    Spacer()
-                        .frame(height: 120)
-                    Spacer()
-                        .frame(height: 120)
                     ForEach(Array(apiManager.walls.enumerated()), id:\.element._id) { index, wall in
                         Button {
                             DispatchQueue.main.async {
                                 apiManager.loadWallScreenWalls(walls: apiManager.walls)
                                 contentViewViewModel.changeWallIndex(index: index)
                                 contentViewViewModel.changeOpacity(opacity: 0.75)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    contentViewViewModel.openWallScreenView()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    showingSheet.toggle()
                                 }
                             }
                         } label: {
@@ -102,6 +268,18 @@ struct HomeView: View {
                             }
                         }
                     }
+                    .sheet(isPresented: $showingSheet, onDismiss: {
+                        contentViewViewModel.changeWallIndex(index: 0)
+                        contentViewViewModel.changeOpacity(opacity: 0)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadWallScreenWalls()
+                        }
+                        
+                    }) {
+                        WallScreenView()
+                    }
+                    
+                    
                     if apiManager.loadingWalls {
                         VStack {
                             Spacer()
@@ -134,10 +312,5 @@ struct HomeView: View {
         .offset(x: contentViewViewModel.homeViewOpened ? 18 : -UIScreen.screenWidth)
         .opacity(contentViewViewModel.homeViewOpened ? 1 : 0)
         .animation(.spring(), value: contentViewViewModel.homeViewOpened)
-        .onChange(of: scenePhase) { newValue in
-            if newValue == .inactive {
-                apiManager.loadWalls(initialize: true)
-            }
-        }
     }
 }

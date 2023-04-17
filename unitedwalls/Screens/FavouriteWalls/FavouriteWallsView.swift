@@ -12,22 +12,29 @@ struct FavouriteWallsView: View {
     @EnvironmentObject var apiManager: ApiManager
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
+    @State private var showingSheet = false
     
     var body: some View {
         ScrollView {
+            Spacer()
+                .frame(height: 120)
+            
+            HStack {
+                Text("Favourites")
+                    .font(.title2)
+                Spacer()
+            }
+            .padding(.horizontal, 15)
+            
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                Spacer()
-                    .frame(height: 120)
-                Spacer()
-                    .frame(height: 120)
                 ForEach(Array(apiManager.favouriteWalls.enumerated()), id:\.element._id) { index, wall in
                     Button {
                         DispatchQueue.main.async {
                             apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
                             contentViewViewModel.changeWallIndex(index: index)
                             contentViewViewModel.changeOpacity(opacity: 0.75)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                contentViewViewModel.openFavouriteWallScreenView()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                showingSheet.toggle()
                             }
                         }
                     } label: {
@@ -50,6 +57,16 @@ struct FavouriteWallsView: View {
                     .gesture(DragGesture(minimumDistance: 0).onChanged({ _ in
                         //do nothing
                     }))
+                    .sheet(isPresented: $showingSheet, onDismiss: {
+                        contentViewViewModel.changeWallIndex(index: 0)
+                        contentViewViewModel.changeOpacity(opacity: 0)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            apiManager.unloadWallScreenFavouriteWalls()
+                        }
+                        
+                    }) {
+                        FavouriteWallScreenView()
+                    }
                 }
                 Spacer()
                     .frame(height: 90)

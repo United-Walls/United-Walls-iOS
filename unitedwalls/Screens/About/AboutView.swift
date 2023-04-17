@@ -55,7 +55,7 @@ struct AboutView: View {
                         Text("Paras KCD")
                             .font(Font.headline)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("iOS, Android, Bot and Server Developer")
+                        Text("Developer")
                             .font(Font.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }

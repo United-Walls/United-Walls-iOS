@@ -31,11 +31,17 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openHomeView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.mostLikedScreenOpened {
+                            contentViewViewModel.closeMostLikedScreenView()
+                        }
                         if contentViewViewModel.aboutViewOpened {
                             contentViewViewModel.closeAboutView()
                         }
                         if contentViewViewModel.categoriesViewOpened {
                             contentViewViewModel.closeCategoriesView()
+                        }
+                        if contentViewViewModel.mostPopularScreenOpened {
+                            contentViewViewModel.closeMostPopularScreenView()
                         }
                         if contentViewViewModel.favouriteWallsViewOpened {
                             contentViewViewModel.closeFavouriteWalls()
@@ -62,6 +68,9 @@ struct Drawer: View {
                             SDImageCache.shared.clearMemory()
                             apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                             contentViewViewModel.closeSidebar()
+                            if contentViewViewModel.mostLikedScreenOpened {
+                                contentViewViewModel.closeMostLikedScreenView()
+                            }
                             if contentViewViewModel.homeViewOpened {
                                 contentViewViewModel.closeHomeView()
                             }
@@ -70,6 +79,9 @@ struct Drawer: View {
                             }
                             if contentViewViewModel.categoriesViewOpened {
                                 contentViewViewModel.closeCategoriesView()
+                            }
+                            if contentViewViewModel.mostPopularScreenOpened {
+                                contentViewViewModel.closeMostPopularScreenView()
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 contentViewViewModel.openFavouriteWalls()
@@ -93,11 +105,17 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openAboutView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.mostLikedScreenOpened {
+                            contentViewViewModel.closeMostLikedScreenView()
+                        }
                         if contentViewViewModel.homeViewOpened {
                             contentViewViewModel.closeHomeView()
                         }
                         if contentViewViewModel.categoriesViewOpened {
                             contentViewViewModel.closeCategoriesView()
+                        }
+                        if contentViewViewModel.mostPopularScreenOpened {
+                            contentViewViewModel.closeMostPopularScreenView()
                         }
                         if contentViewViewModel.favouriteWallsViewOpened {
                             contentViewViewModel.closeFavouriteWalls()
@@ -123,11 +141,17 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openCategoriesView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.mostLikedScreenOpened {
+                            contentViewViewModel.closeMostLikedScreenView()
+                        }
                         if contentViewViewModel.homeViewOpened {
                             contentViewViewModel.closeHomeView()
                         }
                         if contentViewViewModel.aboutViewOpened {
                             contentViewViewModel.closeAboutView()
+                        }
+                        if contentViewViewModel.mostPopularScreenOpened {
+                            contentViewViewModel.closeMostPopularScreenView()
                         }
                         if contentViewViewModel.favouriteWallsViewOpened {
                             contentViewViewModel.closeFavouriteWalls()
@@ -158,6 +182,12 @@ struct Drawer: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                         apiManager.unloadCategory()
                                     }
+                                }
+                                if contentViewViewModel.mostLikedScreenOpened {
+                                    contentViewViewModel.closeMostLikedScreenView()
+                                }
+                                if contentViewViewModel.mostPopularScreenOpened {
+                                    contentViewViewModel.closeMostPopularScreenView()
                                 }
                                 contentViewViewModel.closeSidebar()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

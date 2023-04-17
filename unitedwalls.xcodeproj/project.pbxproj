@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E617A80129ECE87B00A47EC6 /* MostLikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E617A80029ECE87B00A47EC6 /* MostLikedView.swift */; };
+		E617A80329ECEB0600A47EC6 /* MostLikedWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E617A80229ECEB0600A47EC6 /* MostLikedWallScreenView.swift */; };
+		E617A80529ECEB1C00A47EC6 /* MostPopularWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E617A80429ECEB1C00A47EC6 /* MostPopularWallScreenView.swift */; };
 		E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */; };
 		E6541C0529D1DAAA00A4F6C2 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */; };
 		E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A08E29B9FE6700C14423 /* AboutView.swift */; };
@@ -39,7 +42,10 @@
 		E6923EAF29BFCCC600EE7B8E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */; };
 		E6923EB129BFD19200EE7B8E /* CategoryWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */; };
 		E6923EB329C0728300EE7B8E /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6923EB229C0728300EE7B8E /* PinchToZoom.swift */; };
+		E6B98FC929ED0264003E7293 /* MostPopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B98FC829ED0264003E7293 /* MostPopularView.swift */; };
+		E6B98FCB29EDB060003E7293 /* WallOfDayScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B98FCA29EDB060003E7293 /* WallOfDayScreenView.swift */; };
 		E6CC139829D0A8B700853989 /* PrivacyPolicyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC139729D0A8B600853989 /* PrivacyPolicyStore.swift */; };
+		E6F1A28829DCD34000549C8C /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F1A28729DCD34000549C8C /* UIDevice.swift */; };
 		E6FD20D229C1E0F70058A008 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = E6FD20D129C1E0F70058A008 /* GoogleMobileAds */; };
 		E6FD20DD29C1E7110058A008 /* SwiftUIBannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +64,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E617A80029ECE87B00A47EC6 /* MostLikedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostLikedView.swift; sourceTree = "<group>"; };
+		E617A80229ECEB0600A47EC6 /* MostLikedWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostLikedWallScreenView.swift; sourceTree = "<group>"; };
+		E617A80429ECEB1C00A47EC6 /* MostPopularWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularWallScreenView.swift; sourceTree = "<group>"; };
 		E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothAsyncImage.swift; sourceTree = "<group>"; };
 		E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		E661A08E29B9FE6700C14423 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -91,7 +100,10 @@
 		E6923EAE29BFCCC600EE7B8E /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryWallScreenView.swift; sourceTree = "<group>"; };
 		E6923EB229C0728300EE7B8E /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
+		E6B98FC829ED0264003E7293 /* MostPopularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularView.swift; sourceTree = "<group>"; };
+		E6B98FCA29EDB060003E7293 /* WallOfDayScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallOfDayScreenView.swift; sourceTree = "<group>"; };
 		E6CC139729D0A8B600853989 /* PrivacyPolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyStore.swift; sourceTree = "<group>"; };
+		E6F1A28729DCD34000549C8C /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		E6FD20DC29C1E7110058A008 /* SwiftUIBannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBannerAd.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +120,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E617A7FE29ECE84700A47EC6 /* MostLiked */ = {
+			isa = PBXGroup;
+			children = (
+				E617A80029ECE87B00A47EC6 /* MostLikedView.swift */,
+			);
+			path = MostLiked;
+			sourceTree = "<group>";
+		};
+		E617A7FF29ECE86400A47EC6 /* MostPopular */ = {
+			isa = PBXGroup;
+			children = (
+				E6B98FC829ED0264003E7293 /* MostPopularView.swift */,
+			);
+			path = MostPopular;
+			sourceTree = "<group>";
+		};
 		E6541C0329D1DA8200A4F6C2 /* PrivacyPolicy */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +232,7 @@
 				E68FBCF129B97B1B00BA2328 /* UIScreen.swift */,
 				E6923E9129BB65D400EE7B8E /* View.swift */,
 				E6923EA029BCA84300EE7B8E /* UIImage.swift */,
+				E6F1A28729DCD34000549C8C /* UIDevice.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,6 +260,8 @@
 		E68FBCFD29B9816300BA2328 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E617A7FF29ECE86400A47EC6 /* MostPopular */,
+				E617A7FE29ECE84700A47EC6 /* MostLiked */,
 				E6541C0329D1DA8200A4F6C2 /* PrivacyPolicy */,
 				E6923EAD29BFCCB500EE7B8E /* Category */,
 				E6923EAA29BFBEDC00EE7B8E /* Categories */,
@@ -256,6 +287,9 @@
 				E68FBD0529B987D800BA2328 /* WallScreenView.swift */,
 				E6923EA829BFAE0C00EE7B8E /* FavouriteWallScreenView.swift */,
 				E6923EB029BFD19200EE7B8E /* CategoryWallScreenView.swift */,
+				E617A80229ECEB0600A47EC6 /* MostLikedWallScreenView.swift */,
+				E617A80429ECEB1C00A47EC6 /* MostPopularWallScreenView.swift */,
+				E6B98FCA29EDB060003E7293 /* WallOfDayScreenView.swift */,
 			);
 			path = WallScreen;
 			sourceTree = "<group>";
@@ -388,6 +422,7 @@
 				E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */,
 				E68FBCF729B97C6100BA2328 /* ContentViewViewModel.swift in Sources */,
 				E6923EA129BCA84300EE7B8E /* UIImage.swift in Sources */,
+				E617A80329ECEB0600A47EC6 /* MostLikedWallScreenView.swift in Sources */,
 				E6923E9229BB65D400EE7B8E /* View.swift in Sources */,
 				E6923E9929BC424F00EE7B8E /* PhotoManager.swift in Sources */,
 				E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */,
@@ -402,7 +437,12 @@
 				E6FD20DD29C1E7110058A008 /* SwiftUIBannerAd.swift in Sources */,
 				E68FBCF229B97B1B00BA2328 /* UIScreen.swift in Sources */,
 				E68FBCDF29B9788200BA2328 /* Wall.swift in Sources */,
+				E6B98FC929ED0264003E7293 /* MostPopularView.swift in Sources */,
+				E617A80129ECE87B00A47EC6 /* MostLikedView.swift in Sources */,
+				E617A80529ECEB1C00A47EC6 /* MostPopularWallScreenView.swift in Sources */,
 				E68FBCF029B97B0700BA2328 /* Color.swift in Sources */,
+				E6B98FCB29EDB060003E7293 /* WallOfDayScreenView.swift in Sources */,
+				E6F1A28829DCD34000549C8C /* UIDevice.swift in Sources */,
 				E6CC139829D0A8B700853989 /* PrivacyPolicyStore.swift in Sources */,
 				E68FBCD029B9772E00BA2328 /* unitedwallsApp.swift in Sources */,
 				E6923E9B29BC4AD400EE7B8E /* ShareSheet.swift in Sources */,
@@ -551,7 +591,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -590,7 +630,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

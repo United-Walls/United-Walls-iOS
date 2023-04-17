@@ -20,6 +20,8 @@ struct ContentView: View {
                     HomeView()
                     AboutView()
                     CategoriesView()
+                    MostLikedView()
+                    MostPopularView()
                     if favouriteWallsStore.walls.count != 0 || apiManager.favouriteWalls.count != 0 {
                         FavouriteWallsView()
                     }
@@ -67,15 +69,6 @@ struct ContentView: View {
                    .padding()
                #endif
                Drawer(opened: contentViewViewModel.sidebarOpened)
-               if apiManager.modifiedWalls.count > 0 {
-                   WallScreenView()
-               }
-               if apiManager.modifiedFavouriteWalls.count > 0 {
-                   FavouriteWallScreenView()
-               }
-               if apiManager.modifiedSelectedCategoryWalls.count > 0 {
-                   CategoryWallScreenView()
-               }
             } else {
                 PrivacyPolicyView()
                 Topbar(toggleSidebar: { contentViewViewModel.toggleSidebar() })

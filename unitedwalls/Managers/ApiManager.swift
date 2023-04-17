@@ -18,6 +18,9 @@ class ApiManager: ObservableObject {
     @Published var selectedCategory: Category?
     @Published var modifiedSelectedCategoryWalls: [Wall] = []
     @Published var wallTotalCount: Int = 0
+    @Published var mostFavouritedWalls: [Wall] = []
+    @Published var mostDownloadedWalls: [Wall] = []
+    @Published var wallOfDay: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
     private var page = 0
     
     init() {
@@ -28,6 +31,150 @@ class ApiManager: ObservableObject {
         self.loadWalls(initialize: true)
         self.loadCategories()
         self.loadWallCount()
+        self.loadMostDownloadedWalls()
+        self.loadMostFavouritedWalls()
+        self.loadWallOfDay()
+    }
+    
+    func loadWallOfDay() {
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/wallOfDay")
+        if url != nil {
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    DispatchQueue.main.async {
+                        self.wallOfDay = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+                    }
+                    return
+                }
+                
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        self.wallOfDay = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+                    }
+                    return
+                }
+                
+                do {
+                    let json = try JSONDecoder().decode(Wall.self, from: data)
+                    DispatchQueue.main.async {
+                        self.wallOfDay = json
+                    }
+                } catch {
+                    print(error)
+                    return
+                }
+            }
+            .resume()
+        }
+    }
+    
+    func addToServer(wallId: String, api: String) {
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/\(api)?wallId=\(wallId)")
+        if url != nil {
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    return
+                }
+                
+                guard let data = data else {
+                    
+                    return
+                }
+                
+                do {
+                    print("Success")
+                } catch {
+                    print(error)
+                    return
+                }
+            }
+            .resume()
+        }
+    }
+    
+    func loadMostFavouritedWalls() {
+        self.mostFavouritedWalls = []
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/mostFavourited")
+        if url != nil {
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    let mostFavouritedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostFavouritedWalls = mostFavouritedWalls
+                    }
+                    return
+                }
+                
+                guard let data = data else {
+                    let mostFavouritedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostFavouritedWalls = mostFavouritedWalls
+                    }
+                    return
+                }
+                
+                do {
+                    let json = try JSONDecoder().decode([Wall].self, from: data)
+                    DispatchQueue.main.async {
+                        self.mostFavouritedWalls.append(contentsOf: json)
+                        self.loadingWalls = false
+                    }
+                } catch {
+                    print(error)
+                    let mostFavouritedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostFavouritedWalls = mostFavouritedWalls
+                    }
+                    return
+                }
+            }
+            .resume()
+        }
+    }
+    
+    func loadMostDownloadedWalls() {
+        self.mostDownloadedWalls = []
+        let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/mostDownloaded")
+        if url != nil {
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    let mostDownloadedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostDownloadedWalls = mostDownloadedWalls
+                    }
+                    return
+                }
+                
+                guard let data = data else {
+                    let mostDownloadedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostDownloadedWalls = mostDownloadedWalls
+                    }
+                    return
+                }
+                
+                do {
+                    let json = try JSONDecoder().decode([Wall].self, from: data)
+                    
+                    DispatchQueue.main.async {
+                        self.mostDownloadedWalls.append(contentsOf: json)
+                        self.loadingWalls = false
+                    }
+                } catch {
+                    print(error)
+                    let mostDownloadedWalls: [Wall] = []
+                    DispatchQueue.main.async {
+                        self.mostDownloadedWalls = mostDownloadedWalls
+                    }
+                    return
+                }
+            }
+            .resume()
+        }
     }
     
     func loadWallCount() {
@@ -45,7 +192,10 @@ class ApiManager: ObservableObject {
                 
                 do {
                     let json = try JSONDecoder().decode(Int.self, from: data)
-                    self.wallTotalCount = json
+                    DispatchQueue.main.async {
+                        self.wallTotalCount = json
+                    }
+                    
                 } catch {
                     print(error)
                     return

@@ -21,6 +21,10 @@ class ContentViewViewModel: ObservableObject {
     @Published var categoryViewOpened: Bool = false
     @Published var categoryWallScreenViewOpened: Bool = false
     @Published var sidebarOffset: CGFloat = 0
+    @Published var mostLikedScreenOpened: Bool = false
+    @Published var mostLikedWallScreenViewOpened: Bool = false
+    @Published var mostPopularScreenOpened: Bool = false
+    @Published var mostPopularWallScreenViewOpened: Bool = false
     
     func changeOffset(offset: CGFloat) {
         sidebarOffset = offset
@@ -119,5 +123,38 @@ class ContentViewViewModel: ObservableObject {
     
     func closeCategoryWallScreenView() {
         self.categoryWallScreenViewOpened = false
+    }
+    
+    func openMostLikedScreenView() {
+        print("Opened Most Liked Screen View")
+        self.mostLikedScreenOpened = true
+    }
+    
+    func closeMostLikedScreenView() {
+        self.mostLikedScreenOpened = false
+    }
+    
+    func openMostLikedWallScreenView() {
+        self.mostLikedWallScreenViewOpened = true
+    }
+    
+    func closeMostLikedWallScreenView() {
+        self.mostLikedWallScreenViewOpened = false
+    }
+    
+    func openMostPopularScreenView() {
+        self.mostPopularScreenOpened = true
+    }
+    
+    func closeMostPopularScreenView() {
+        self.mostPopularScreenOpened = false
+    }
+    
+    func openMostPopularWallScreenView() {
+        self.mostPopularWallScreenViewOpened = true
+    }
+    
+    func closeMostPopularWallScreenView() {
+        self.mostPopularWallScreenViewOpened = false
     }
 }
