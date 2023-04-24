@@ -251,13 +251,6 @@ class ApiManager: ObservableObject {
         }
     }
     
-    private func loadWallById(wallId: String) -> Wall? {
-        guard let index = self.walls.firstIndex(where: {$0._id == wallId}) else {
-            return nil
-        }
-        return self.walls[index]
-    }
-    
     private func loadCategories() {
         let url = Constants.categoryApiURL
         if (url != nil) {
@@ -326,10 +319,28 @@ class ApiManager: ObservableObject {
     func loadFavouriteWalls(wallIds: [String]) {
         self.favouriteWalls = []
         for id in wallIds {
-            guard let wall = loadWallById(wallId: id) else {
-                break
+            let url = URL(string: "http://unitedwalls.paraskcd.com/api/walls/\(id)")
+            let request = URLRequest(url: url!)
+            URLSession.shared.dataTask(with: request) { [self] data, res, err in
+                guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                do {
+                    let json = try JSONDecoder().decode(Wall.self, from: data)
+                    DispatchQueue.main.async {
+                        self.favouriteWalls.append(json)
+                    }
+                } catch {
+                    print(error)
+                    return
+                }
             }
-            self.favouriteWalls.append(wall)
+            .resume()
         }
     }
     

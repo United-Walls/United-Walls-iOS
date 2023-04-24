@@ -42,8 +42,8 @@ struct HomeView: View {
                             .scaledToFill()
                             .frame(height: 412)
                             .background(Color.theme.bgTertiaryColor)
+                            .padding(.bottom, 12)
                             .cornerRadius(18)
-                            .padding(.bottom, 6)
                             .shadow(radius: 10, x: 0, y: 0)
                         
                         Rectangle().foregroundColor(Color.clear).background(LinearGradient(gradient: Gradient(colors: [Color.theme.bgColor.opacity(0.85), .clear]), startPoint: .bottom, endPoint: .top)).frame(maxWidth: .infinity).cornerRadius(18, corners: [.bottomRight, .bottomLeft])
@@ -60,6 +60,8 @@ struct HomeView: View {
                         WallOfDayScreenView()
                     }
                 }
+                Spacer()
+                    .frame(height: 30)
                 if apiManager.mostFavouritedWalls.count > 0 {
                     HStack {
                         Text("Most Liked")
@@ -77,7 +79,7 @@ struct HomeView: View {
                                 Text("Show more")
                                 Image(systemName: "chevron.right")
                             }
-                            .padding(5)
+                            .padding(12)
                             .padding(.horizontal, 10)
                             .background(Color.theme.bgSecondaryColor)
                             .cornerRadius(18)
@@ -106,10 +108,10 @@ struct HomeView: View {
                                         .frame(width: 150, height: 240)
                                         .background(Color.theme.bgTertiaryColor)
                                         .cornerRadius(18)
-                                        .padding(.bottom, 6)
-                                        .shadow(radius: 10, x: 0, y: 0)
+                                        .padding(.vertical, 12)
+                                        .shadow(radius: 10, x: 0, y: 2)
                                         .padding(.leading, 10)
-                                        .padding([.bottom], 10)
+                                        .padding(.bottom, 5)
                                 }
                                 .sheet(isPresented: $showingMostLikedSheet, onDismiss: {
                                     contentViewViewModel.changeWallIndex(index: 0)
@@ -139,7 +141,7 @@ struct HomeView: View {
                                 Text("Show more")
                                 Image(systemName: "chevron.right")
                             }
-                            .padding(5)
+                            .padding(12)
                             .padding(.horizontal, 10)
                             .background(Color.theme.bgSecondaryColor)
                             .cornerRadius(18)
@@ -168,10 +170,10 @@ struct HomeView: View {
                                         .frame(width: 150, height: 240)
                                         .background(Color.theme.bgTertiaryColor)
                                         .cornerRadius(18)
-                                        .padding(.bottom, 6)
-                                        .shadow(radius: 10, x: 0, y: 0)
+                                        .padding(.vertical, 12)
+                                        .shadow(radius: 10, x: 0, y: 2)
                                         .padding(.leading, 10)
-                                        .padding([.bottom], 10)
+                                        .padding(.bottom, 5)
                                 }
                                 .sheet(isPresented: $showingMostPopularSheet, onDismiss: {
                                     contentViewViewModel.changeWallIndex(index: 0)
