@@ -28,7 +28,7 @@ struct HomeView: View {
                 Button {
                     DispatchQueue.main.async {
                         contentViewViewModel.changeOpacity(opacity: 0.75)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             showingWallOfDaySheet.toggle()
                         }
                     }
@@ -70,7 +70,7 @@ struct HomeView: View {
                         Button {
                             DispatchQueue.main.async {
                                 contentViewViewModel.closeHomeView()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     contentViewViewModel.openMostLikedScreenView()
                                 }
                             }
@@ -94,7 +94,7 @@ struct HomeView: View {
                                     DispatchQueue.main.async {
                                         contentViewViewModel.changeWallIndex(index: index)
                                         contentViewViewModel.changeOpacity(opacity: 0.75)
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             showingMostLikedSheet.toggle()
                                         }
                                     }
@@ -156,7 +156,7 @@ struct HomeView: View {
                                     DispatchQueue.main.async {
                                         contentViewViewModel.changeWallIndex(index: index)
                                         contentViewViewModel.changeOpacity(opacity: 0.75)
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                             showingMostPopularSheet.toggle()
                                         }
                                     }
@@ -197,10 +197,9 @@ struct HomeView: View {
                     ForEach(Array(apiManager.walls.enumerated()), id:\.element._id) { index, wall in
                         Button {
                             DispatchQueue.main.async {
-                                apiManager.loadWallScreenWalls(walls: apiManager.walls)
                                 contentViewViewModel.changeWallIndex(index: index)
                                 contentViewViewModel.changeOpacity(opacity: 0.75)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     showingSheet.toggle()
                                 }
                             }
@@ -273,10 +272,6 @@ struct HomeView: View {
                     .sheet(isPresented: $showingSheet, onDismiss: {
                         contentViewViewModel.changeWallIndex(index: 0)
                         contentViewViewModel.changeOpacity(opacity: 0)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            apiManager.unloadWallScreenWalls()
-                        }
-                        
                     }) {
                         WallScreenView()
                     }

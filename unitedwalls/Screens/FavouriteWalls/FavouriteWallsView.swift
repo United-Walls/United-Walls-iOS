@@ -30,10 +30,9 @@ struct FavouriteWallsView: View {
                 ForEach(Array(apiManager.favouriteWalls.enumerated()), id:\.element._id) { index, wall in
                     Button {
                         DispatchQueue.main.async {
-                            apiManager.loadWallScreenFavouriteWalls(walls: apiManager.favouriteWalls)
                             contentViewViewModel.changeWallIndex(index: index)
                             contentViewViewModel.changeOpacity(opacity: 0.75)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 showingSheet.toggle()
                             }
                         }
@@ -60,10 +59,6 @@ struct FavouriteWallsView: View {
                     .sheet(isPresented: $showingSheet, onDismiss: {
                         contentViewViewModel.changeWallIndex(index: 0)
                         contentViewViewModel.changeOpacity(opacity: 0)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            apiManager.unloadWallScreenFavouriteWalls()
-                        }
-                        
                     }) {
                         FavouriteWallScreenView()
                     }

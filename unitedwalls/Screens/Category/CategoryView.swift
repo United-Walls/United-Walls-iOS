@@ -30,10 +30,9 @@ struct CategoryView: View {
                     ForEach(Array(apiManager.selectedCategory!.walls.enumerated()), id:\.element._id) { index, wall in
                         Button {
                             DispatchQueue.main.async {
-                                apiManager.loadWallScreenSelectedCategoryWalls(walls: apiManager.selectedCategory!.walls)
                                 contentViewViewModel.changeWallIndex(index: index)
                                 contentViewViewModel.changeOpacity(opacity: 0.75)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     showingSheet.toggle()
                                 }
                             }
@@ -60,10 +59,6 @@ struct CategoryView: View {
                         .sheet(isPresented: $showingSheet, onDismiss: {
                             contentViewViewModel.changeWallIndex(index: 0)
                             contentViewViewModel.changeOpacity(opacity: 0)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                apiManager.unloadWallScreenSelectedCategoryWalls()
-                            }
-                            
                         }) {
                             CategoryWallScreenView()
                         }

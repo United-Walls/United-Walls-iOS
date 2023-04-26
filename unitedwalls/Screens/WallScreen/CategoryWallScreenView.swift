@@ -53,7 +53,7 @@ struct CategoryWallScreenView: View {
                 .animation(.easeInOut, value: changeOpacity)
             
             TabView(selection: $contentViewViewModel.wallIndex) {
-                ForEach(Array(apiManager.modifiedSelectedCategoryWalls.enumerated()), id: \.element._id) { index, wall in
+                ForEach(Array(apiManager.selectedCategory!.walls.enumerated()), id: \.element._id) { index, wall in
                     WebImage(url: URL(string: wall.file_url))
                         .purgeable(true)
                         .resizable()
@@ -73,13 +73,15 @@ struct CategoryWallScreenView: View {
             .onChange(of: contentViewViewModel.wallIndex) { index in
                 self.changeOpacity = 0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    selectedWall = apiManager.modifiedSelectedCategoryWalls[index]
+                    selectedWall = apiManager.selectedCategory!.walls[index]
                     self.changeOpacity = 1
                 }
                 
             }
             .onAppear {
-                selectedWall = apiManager.modifiedSelectedCategoryWalls[contentViewViewModel.wallIndex]
+                if (contentViewViewModel.wallIndex >= 0 && apiManager.selectedCategory!.walls.count > contentViewViewModel.wallIndex) {
+                    selectedWall = apiManager.selectedCategory!.walls[contentViewViewModel.wallIndex]
+                }
             }
             
             VStack(alignment: .center) {

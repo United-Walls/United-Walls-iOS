@@ -79,7 +79,27 @@ struct MostPopularWallScreenView: View {
                 
             }
             .onAppear {
-                selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
+                if (contentViewViewModel.wallIndex >= 0 && apiManager.mostDownloadedWalls.count > contentViewViewModel.wallIndex) {
+                    selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if (contentViewViewModel.wallIndex >= 0 && apiManager.mostDownloadedWalls.count > contentViewViewModel.wallIndex) {
+                            selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                if (contentViewViewModel.wallIndex >= 0 && apiManager.mostDownloadedWalls.count > contentViewViewModel.wallIndex) {
+                                    selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
+                                } else {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        if (contentViewViewModel.wallIndex >= 0 && apiManager.mostDownloadedWalls.count > contentViewViewModel.wallIndex) {
+                                            selectedWall = apiManager.mostDownloadedWalls[contentViewViewModel.wallIndex]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             
             VStack(alignment: .center) {

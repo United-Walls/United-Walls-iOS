@@ -53,7 +53,7 @@ struct FavouriteWallScreenView: View {
                 .animation(.easeInOut, value: changeOpacity)
             
             TabView(selection: $contentViewViewModel.wallIndex) {
-                ForEach(Array(apiManager.modifiedFavouriteWalls.enumerated()), id: \.element._id) { index, wall in
+                ForEach(Array(apiManager.favouriteWalls.enumerated()), id: \.element._id) { index, wall in
                     WebImage(url: URL(string: wall.file_url))
                         .purgeable(true)
                         .resizable()
@@ -73,12 +73,14 @@ struct FavouriteWallScreenView: View {
             .onChange(of: contentViewViewModel.wallIndex) { index in
                 self.changeOpacity = 0
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    selectedWall = apiManager.modifiedFavouriteWalls[index]
+                    selectedWall = apiManager.favouriteWalls[index]
                     self.changeOpacity = 1
                 }
             }
             .onAppear {
-                selectedWall = apiManager.modifiedFavouriteWalls[contentViewViewModel.wallIndex]
+                if (contentViewViewModel.wallIndex >= 0 && apiManager.favouriteWalls.count > contentViewViewModel.wallIndex) {
+                    selectedWall = apiManager.favouriteWalls[contentViewViewModel.wallIndex]
+                }
             }
             
             VStack(alignment: .center) {
