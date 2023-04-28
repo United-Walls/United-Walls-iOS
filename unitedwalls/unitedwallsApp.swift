@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import AppTrackingTransparency
 import GoogleMobileAds
+import AppTrackingTransparency
+import UserMessagingPlatform
 
 @main
 struct unitedwallsApp: App {
@@ -23,17 +24,7 @@ struct unitedwallsApp: App {
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.theme.textColor)], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.theme.textColor)], for: .normal)
         
-        if ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
-                    //User has not indicated their choice for app tracking
-                    //You may want to show a pop-up explaining why you are collecting their data
-                    //Toggle any variables to do this here
-        } else {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                //Whether or not user has opted in initialize GADMobileAds here it will handle the rest
-                                                            
-                GADMobileAds.sharedInstance().start(completionHandler: nil)
-            }
-        }
+        requestIDFA()
     }
     
     var body: some Scene {
@@ -54,5 +45,57 @@ struct unitedwallsApp: App {
                     }
                 }
         }
+    }
+    
+    private func initGoogleMobileAds() {
+        GADMobileAds.sharedInstance()
+            .start(completionHandler: nil)
+    }
+    
+    private func requestIDFA() {
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+            // Tracking authorization completed. Start loading ads here.
+            showConsentInformation()
+        })
+    }
+        
+    private func showConsentInformation() {
+        let parameters = UMPRequestParameters()
+        
+        // false means users are not under age.
+        parameters.tagForUnderAgeOfConsent = false
+        
+        UMPConsentInformation.sharedInstance.requestConsentInfoUpdate(
+            with: parameters,
+            completionHandler: { error in
+                if error != nil {
+                    // Handle the error.
+                } else {
+                    // The consent information state was updated.
+                    // You are now ready to check if a form is
+                    // available.
+                    loadForm()
+                }
+            })
+        
+    }
+        
+    func loadForm() {
+        UMPConsentForm.load(
+            completionHandler: { form, loadError in
+                if loadError != nil {
+                    // Handle the error
+                } else {
+                    // Present the form
+                    if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.required {
+                        form?.present(from: UIApplication.shared.windows.first!.rootViewController! as UIViewController, completionHandler: { dimissError in
+                            if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.obtained {
+                                // App can start requesting ads.
+                                initGoogleMobileAds()
+                            }
+                        })
+                    }
+                }
+            })
     }
 }
