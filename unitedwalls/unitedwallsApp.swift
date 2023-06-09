@@ -35,6 +35,10 @@ struct unitedwallsApp: App {
                 .environmentObject(favouriteWallsStore)
                 .environmentObject(privacyPolicyStore)
                 .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.requestIDFA()
+                    }
+                    
                     FavouriteWallsStore.load { result in
                         switch result {
                         case .failure(let error):
@@ -53,9 +57,17 @@ struct unitedwallsApp: App {
     }
     
     private func requestIDFA() {
-        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-            // Tracking authorization completed. Start loading ads here.
-            showConsentInformation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                  ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                // Tracking authorization completed. Start loading ads here.
+                      switch status {
+                      case .notDetermined:
+                          break
+                      default:
+                          self.showConsentInformation()
+                      }
+                      
+              })
         })
     }
         
@@ -74,7 +86,7 @@ struct unitedwallsApp: App {
                     // The consent information state was updated.
                     // You are now ready to check if a form is
                     // available.
-                    loadForm()
+                    self.loadForm()
                 }
             })
         
@@ -91,7 +103,7 @@ struct unitedwallsApp: App {
                         form?.present(from: UIApplication.shared.windows.first!.rootViewController! as UIViewController, completionHandler: { dimissError in
                             if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.obtained {
                                 // App can start requesting ads.
-                                initGoogleMobileAds()
+                                self.initGoogleMobileAds()
                             }
                         })
                     }
