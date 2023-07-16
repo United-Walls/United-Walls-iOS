@@ -12,6 +12,8 @@ struct ContentView: View {
     @EnvironmentObject var contentViewViewModel: ContentViewViewModel
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     @EnvironmentObject var privacyPolicyStore: PrivacyPolicyStore
+    @EnvironmentObject var networkMonitor: NetworkMonitor
+    @State private var showNetworkAlert = false
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -19,6 +21,7 @@ struct ContentView: View {
                 Group {
                     HomeView()
                     AboutView()
+                    UploadersView()
                     CategoriesView()
                     MostLikedView()
                     MostPopularView()
@@ -28,7 +31,18 @@ struct ContentView: View {
                     if apiManager.selectedCategory != nil {
                         CategoryView()
                     }
+                    if apiManager.selectedUploader != nil {
+                        UploaderView()
+                    }
                 }
+                .onChange(of: networkMonitor.isConnected) { connection in
+                    showNetworkAlert = connection == false
+                }
+                .alert(
+                    "Network connection seems to be offline.",
+                    isPresented: $showNetworkAlert
+                ) {}
+                
                Rectangle().foregroundColor(Color.clear).background(LinearGradient(gradient: Gradient(colors: [Color.theme.bgColor.opacity(0.1), .clear]), startPoint: .leading, endPoint: .trailing)).frame(maxWidth: 50, maxHeight: .infinity)
                    .highPriorityGesture(
                        DragGesture()

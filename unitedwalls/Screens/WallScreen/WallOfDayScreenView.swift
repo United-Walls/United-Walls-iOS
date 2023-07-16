@@ -66,6 +66,9 @@ struct WallOfDayScreenView: View {
                     .shadow(radius: 20, x: 3, y: 12)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+            .onAppear {
+                apiManager.loadUploaderFromWallId(wallId: apiManager.wallOfDay._id)
+            }
             
             VStack(alignment: .center) {
                 Text("Wallpaper saved in the Photos App").padding(12).background(Color.theme.bgTertiaryColor).cornerRadius(100).frame(width: 300, height: 30).shadow(radius: 20, x: 3, y: 12).frame(maxWidth: .infinity, maxHeight: UIScreen.screenHeight).offset(y: saved ?  -(UIScreen.screenHeight - chevronPosition) : -(UIScreen.screenHeight - 440)).opacity(saved ? 1 : 0).animation(.spring(), value: saved)
@@ -87,7 +90,7 @@ struct WallOfDayScreenView: View {
                 HStack(spacing: 4) {
                     Text("Added by - ")
                         .font(Font.subheadline)
-                    Text(apiManager.wallOfDay.addedBy)
+                    Text(apiManager.addedBy)
                         .font(Font.footnote)
                 }
                 .padding(12)
@@ -107,15 +110,18 @@ struct WallOfDayScreenView: View {
                 Button {
                     showInfo = !showInfo
                 } label: {
-                    Image(systemName: !showInfo ? "info.circle" : "info.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: !showInfo ? "info.circle" : "info.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
 
                 //Favourite
                 Button {
@@ -134,29 +140,35 @@ struct WallOfDayScreenView: View {
                     }
                     apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                 } label: {
-                    Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == apiManager.wallOfDay._id}) ? "heart.fill" : "heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == apiManager.wallOfDay._id}) ? "heart.fill" : "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
 
                 //Share Button
                 Button {
                     showShareSheet.toggle()
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
                 .sheet(isPresented: $showShareSheet) {
                     let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: apiManager.wallOfDay.file_url)!))!
                     ShareSheet(photo: inputImage)
@@ -183,15 +195,18 @@ struct WallOfDayScreenView: View {
                         }
                     }
                 } label: {
-                    Image(systemName: "square.and.arrow.down")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: "square.and.arrow.down")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
             }
             .padding(.trailing, 32)
             .padding(.bottom, 12)

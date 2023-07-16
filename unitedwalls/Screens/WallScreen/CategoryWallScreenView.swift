@@ -72,6 +72,7 @@ struct CategoryWallScreenView: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
             .onChange(of: contentViewViewModel.wallIndex) { index in
                 self.changeOpacity = 0
+                apiManager.loadUploaderFromWallId(wallId: apiManager.selectedCategory!.walls[index]._id)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     selectedWall = apiManager.selectedCategory!.walls[index]
                     self.changeOpacity = 1
@@ -81,6 +82,7 @@ struct CategoryWallScreenView: View {
             .onAppear {
                 if (contentViewViewModel.wallIndex >= 0 && apiManager.selectedCategory!.walls.count > contentViewViewModel.wallIndex) {
                     selectedWall = apiManager.selectedCategory!.walls[contentViewViewModel.wallIndex]
+                    apiManager.loadUploaderFromWallId(wallId: apiManager.selectedCategory!.walls[contentViewViewModel.wallIndex]._id)
                 }
             }
             
@@ -104,7 +106,7 @@ struct CategoryWallScreenView: View {
                 HStack(spacing: 4) {
                     Text("Added by - ")
                         .font(Font.subheadline)
-                    Text(selectedWall.addedBy)
+                    Text(apiManager.addedBy)
                         .font(Font.footnote)
                 }
                 .padding(12)
@@ -125,15 +127,18 @@ struct CategoryWallScreenView: View {
                     Button {
                         showInfo = !showInfo
                     } label: {
-                        Image(systemName: !showInfo ? "info.circle" : "info.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 18)
+                        HStack {
+                            Image(systemName: !showInfo ? "info.circle" : "info.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                        }
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
                     }
                     .buttonStyle(.plain)
-                    .frame(width: 36, height: 36)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(100)
                     
                 } else {
                     // Fallback on earlier versions
@@ -168,29 +173,34 @@ struct CategoryWallScreenView: View {
                     }
                     apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                 } label: {
-                    Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
-
                 //Share Button
                 Button {
                     showShareSheet.toggle()
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
                 .sheet(isPresented: $showShareSheet) {
                     let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
                     ShareSheet(photo: inputImage)
@@ -216,15 +226,18 @@ struct CategoryWallScreenView: View {
                         }
                     }
                 } label: {
-                    Image(systemName: "square.and.arrow.down")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
+                    HStack {
+                        Image(systemName: "square.and.arrow.down")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .frame(width: 36, height: 36)
+                    .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial)
-                .cornerRadius(100)
             }
             .padding(.trailing, 32)
             .padding(.bottom, 12)

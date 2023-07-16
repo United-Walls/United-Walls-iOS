@@ -25,6 +25,9 @@ class ContentViewViewModel: ObservableObject {
     @Published var mostLikedWallScreenViewOpened: Bool = false
     @Published var mostPopularScreenOpened: Bool = false
     @Published var mostPopularWallScreenViewOpened: Bool = false
+    @Published var uploadersViewOpened: Bool = false
+    @Published var uploaderViewOpened: Bool = false
+    @Published var uploaderWallScreenViewOpened: Bool = false
     
     func changeOffset(offset: CGFloat) {
         sidebarOffset = offset
@@ -42,11 +45,13 @@ class ContentViewViewModel: ObservableObject {
     func openSidebar() {
         self.sidebarOpened = true
         self.changeOpacity(opacity: 0.75)
+        print(self.sidebarOpened)
     }
     
     func closeSidebar() {
         self.sidebarOpened = false
         self.changeOpacity(opacity: 0)
+        print(self.sidebarOpened)
     }
     
     func openHomeView() {
@@ -156,5 +161,29 @@ class ContentViewViewModel: ObservableObject {
     
     func closeMostPopularWallScreenView() {
         self.mostPopularWallScreenViewOpened = false
+    }
+    
+    func openUploadersScreenView() {
+        self.uploadersViewOpened = true
+    }
+    
+    func closeUploadersScreenView() {
+        self.uploadersViewOpened = false
+    }
+    
+    func openUploaderScreenView() {
+        self.uploaderViewOpened = true
+    }
+    
+    func closeUploaderScreenView() {
+        self.uploaderViewOpened = false
+    }
+    
+    func openUploaderWallScreenView() {
+        self.uploaderWallScreenViewOpened = true
+    }
+    
+    func closeUploaderWallScreenView() {
+        self.uploaderWallScreenViewOpened = false
     }
 }

@@ -16,6 +16,7 @@ struct unitedwallsApp: App {
     @StateObject var contentViewViewModel: ContentViewViewModel = ContentViewViewModel()
     @StateObject var favouriteWallsStore = FavouriteWallsStore()
     @StateObject var privacyPolicyStore = PrivacyPolicyStore()
+    @StateObject var networkMonitor = NetworkMonitor()
     
     init() {
         print(UIScreen.main.nativeBounds.height)
@@ -34,6 +35,7 @@ struct unitedwallsApp: App {
                 .environmentObject(contentViewViewModel)
                 .environmentObject(favouriteWallsStore)
                 .environmentObject(privacyPolicyStore)
+                .environmentObject(networkMonitor)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.requestIDFA()

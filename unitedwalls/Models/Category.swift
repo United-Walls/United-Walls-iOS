@@ -10,5 +10,5 @@ import Foundation
 struct Category: Codable {
     let _id: String
     let name: String
-    let walls: [Wall]
+    var walls: [Wall]
 }

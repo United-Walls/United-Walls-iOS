@@ -31,6 +31,12 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openHomeView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.uploaderViewOpened {
+                            contentViewViewModel.closeUploaderScreenView()
+                        }
+                        if contentViewViewModel.uploadersViewOpened {
+                            contentViewViewModel.closeUploadersScreenView()
+                        }
                         if contentViewViewModel.mostLikedScreenOpened {
                             contentViewViewModel.closeMostLikedScreenView()
                         }
@@ -68,6 +74,12 @@ struct Drawer: View {
                             SDImageCache.shared.clearMemory()
                             apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                             contentViewViewModel.closeSidebar()
+                            if contentViewViewModel.uploaderViewOpened {
+                                contentViewViewModel.closeUploaderScreenView()
+                            }
+                            if contentViewViewModel.uploadersViewOpened {
+                                contentViewViewModel.closeUploadersScreenView()
+                            }
                             if contentViewViewModel.mostLikedScreenOpened {
                                 contentViewViewModel.closeMostLikedScreenView()
                             }
@@ -105,6 +117,12 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openAboutView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.uploaderViewOpened {
+                            contentViewViewModel.closeUploaderScreenView()
+                        }
+                        if contentViewViewModel.uploadersViewOpened {
+                            contentViewViewModel.closeUploadersScreenView()
+                        }
                         if contentViewViewModel.mostLikedScreenOpened {
                             contentViewViewModel.closeMostLikedScreenView()
                         }
@@ -133,6 +151,48 @@ struct Drawer: View {
                 }
             )
             DrawerItem(
+                icon: "person.2.fill",
+                name: "Creators",
+                active: contentViewViewModel.uploadersViewOpened || contentViewViewModel.uploaderViewOpened,
+                onClick: {
+                    DispatchQueue.main.async {
+                        SDImageCache.shared.clearMemory()
+                        contentViewViewModel.openUploadersScreenView()
+                        contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.uploaderViewOpened {
+                            contentViewViewModel.closeUploaderScreenView()
+                        }
+                        if contentViewViewModel.mostLikedScreenOpened {
+                            contentViewViewModel.closeMostLikedScreenView()
+                        }
+                        if contentViewViewModel.homeViewOpened {
+                            contentViewViewModel.closeHomeView()
+                        }
+                        if contentViewViewModel.aboutViewOpened {
+                            contentViewViewModel.closeAboutView()
+                        }
+                        if contentViewViewModel.mostPopularScreenOpened {
+                            contentViewViewModel.closeMostPopularScreenView()
+                        }
+                        if contentViewViewModel.favouriteWallsViewOpened {
+                            contentViewViewModel.closeFavouriteWalls()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                apiManager.unloadFavouriteWalls()
+                            }
+                        }
+                        if contentViewViewModel.categoryViewOpened {
+                            contentViewViewModel.closeCategoryView()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                apiManager.unloadCategory()
+                            }
+                        }
+                        if contentViewViewModel.categoriesViewOpened {
+                            contentViewViewModel.closeCategoriesView()
+                        }
+                    }
+                }
+            )
+            DrawerItem(
                 icon: "filemenu.and.selection",
                 name: "Categories",
                 active: contentViewViewModel.categoriesViewOpened || contentViewViewModel.categoryViewOpened,
@@ -141,6 +201,12 @@ struct Drawer: View {
                         SDImageCache.shared.clearMemory()
                         contentViewViewModel.openCategoriesView()
                         contentViewViewModel.closeSidebar()
+                        if contentViewViewModel.uploaderViewOpened {
+                            contentViewViewModel.closeUploaderScreenView()
+                        }
+                        if contentViewViewModel.uploadersViewOpened {
+                            contentViewViewModel.closeUploadersScreenView()
+                        }
                         if contentViewViewModel.mostLikedScreenOpened {
                             contentViewViewModel.closeMostLikedScreenView()
                         }
@@ -191,7 +257,7 @@ struct Drawer: View {
                                 }
                                 contentViewViewModel.closeSidebar()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    apiManager.loadCategory(category: category)
+                                    apiManager.loadCategoryById(categoryId: category._id, initialize: true)
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                                     contentViewViewModel.openCategoryView()
@@ -204,6 +270,12 @@ struct Drawer: View {
                                 }
                                 if contentViewViewModel.categoriesViewOpened {
                                     contentViewViewModel.closeCategoriesView()
+                                }
+                                if contentViewViewModel.uploaderViewOpened {
+                                    contentViewViewModel.closeUploaderScreenView()
+                                }
+                                if contentViewViewModel.uploadersViewOpened {
+                                    contentViewViewModel.closeUploadersScreenView()
                                 }
                                 if contentViewViewModel.favouriteWallsViewOpened {
                                     contentViewViewModel.closeFavouriteWalls()

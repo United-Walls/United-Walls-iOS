@@ -23,7 +23,7 @@ struct CategoriesView: View {
                     Button {
                         DispatchQueue.main.async {
                             contentViewViewModel.closeCategoriesView()
-                            apiManager.loadCategory(category: category)
+                            apiManager.loadCategoryById(categoryId: category._id, initialize: true)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 contentViewViewModel.openCategoryView()
                             }
