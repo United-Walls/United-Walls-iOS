@@ -37,7 +37,7 @@ struct UploadersView: View {
                                     .indicator(.activity)
                                     .transition(.fade(duration: 0.5))
                                     .scaledToFill()
-                                    .frame(width: 180, height: 100, alignment: .center)
+                                    .frame(width: 170, height: 100, alignment: .center)
                                     .background(Color.theme.bgTertiaryColor)
                                     .cornerRadius(18)
                                 
@@ -55,9 +55,11 @@ struct UploadersView: View {
                                             .clipShape(Circle())
                                         
                                         Text(uploader.username)
+                                            .lineLimit(1)
                                             .padding()
                                             .background(.ultraThinMaterial)
                                             .cornerRadius(18)
+                                            .frame(width: 100, alignment: Alignment.leading)
                                     }
                                 } else {
                                     Text(uploader.username)

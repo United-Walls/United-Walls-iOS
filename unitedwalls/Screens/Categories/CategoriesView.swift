@@ -35,7 +35,7 @@ struct CategoriesView: View {
                                 .indicator(.activity)
                                 .transition(.fade(duration: 0.5))
                                 .scaledToFill()
-                                .frame(width: 180, height: 100, alignment: .center)
+                                .frame(width: 170, height: 100, alignment: .center)
                                 .background(Color.theme.bgTertiaryColor)
                                 .cornerRadius(18)
                             
