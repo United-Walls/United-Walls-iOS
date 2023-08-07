@@ -40,7 +40,7 @@ struct WallOfDayScreenView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebImage(url: URL(string: apiManager.wallOfDay.thumbnail_url))
+            WebImage(url: URL(string: apiManager.wallOfDay?.thumbnail_url ?? ""))
                 .purgeable(true)
                 .resizable()
                 .indicator(.activity)
@@ -52,7 +52,7 @@ struct WallOfDayScreenView: View {
                 .animation(.easeInOut, value: changeOpacity)
             
             TabView {
-                WebImage(url: URL(string: apiManager.wallOfDay.file_url))
+                WebImage(url: URL(string: apiManager.wallOfDay?.file_url ?? ""))
                     .purgeable(true)
                     .resizable()
                     .indicator(.activity)
@@ -67,7 +67,7 @@ struct WallOfDayScreenView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .onAppear {
-                apiManager.loadUploaderFromWallId(wallId: apiManager.wallOfDay._id)
+                apiManager.loadUploaderFromWallId(wallId: apiManager.wallOfDay?._id ?? "")
             }
             
             VStack(alignment: .center) {
@@ -78,7 +78,7 @@ struct WallOfDayScreenView: View {
                 HStack(spacing: 4) {
                     Text("Name - ")
                         .font(Font.subheadline)
-                    Text(apiManager.wallOfDay.file_name)
+                    Text(apiManager.wallOfDay?.file_name ?? "")
                         .font(Font.footnote)
                 }
                 .padding(12)
@@ -125,23 +125,23 @@ struct WallOfDayScreenView: View {
 
                 //Favourite
                 Button {
-                    if let index = favouriteWallsStore.walls.firstIndex(where: {$0 == apiManager.wallOfDay._id}) {
+                    if let index = favouriteWallsStore.walls.firstIndex(where: {$0 == apiManager.wallOfDay?._id ?? ""}) {
                         favouriteWallsStore.walls.remove(at: index)
-                        self.apiManager.addToServer(wallId: apiManager.wallOfDay._id, api: "removeFav")
+                        self.apiManager.addToServer(wallId: apiManager.wallOfDay?._id ?? "", api: "removeFav")
                     } else {
-                        favouriteWallsStore.walls.insert(apiManager.wallOfDay._id, at: 0)
+                        favouriteWallsStore.walls.insert(apiManager.wallOfDay?._id ?? "", at: 0)
                     }
                     FavouriteWallsStore.save(walls: favouriteWallsStore.walls) { result in
                         if case .failure(let error) = result {
                             fatalError(error.localizedDescription)
                         } else {
-                            self.apiManager.addToServer(wallId: apiManager.wallOfDay._id, api: "addFav")
+                            self.apiManager.addToServer(wallId: apiManager.wallOfDay?._id ?? "", api: "addFav")
                         }
                     }
                     apiManager.loadFavouriteWalls(wallIds: favouriteWallsStore.walls)
                 } label: {
                     HStack {
-                        Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == apiManager.wallOfDay._id}) ? "heart.fill" : "heart")
+                        Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == apiManager.wallOfDay?._id ?? ""}) ? "heart.fill" : "heart")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 18, height: 18)
@@ -170,7 +170,7 @@ struct WallOfDayScreenView: View {
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $showShareSheet) {
-                    let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: apiManager.wallOfDay.file_url)!))!
+                    let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: apiManager.wallOfDay?.file_url ?? "")!))!
                     ShareSheet(photo: inputImage)
                 }
 
@@ -178,7 +178,7 @@ struct WallOfDayScreenView: View {
                     self.loading = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         DispatchQueue.main.async {
-                            let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: apiManager.wallOfDay.file_url)!))!
+                            let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: apiManager.wallOfDay?.file_url ?? "")!))!
                             
                             let imageSaver = PhotoManager(albumName: "United Walls")
                             imageSaver.save(inputImage) { completed, error in
@@ -188,7 +188,7 @@ struct WallOfDayScreenView: View {
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                                         saved = false
-                                        self.apiManager.addToServer(wallId: apiManager.wallOfDay._id, api: "addDownloaded")
+                                        self.apiManager.addToServer(wallId: apiManager.wallOfDay?._id ?? "", api: "addDownloaded")
                                     }
                                 }
                             }

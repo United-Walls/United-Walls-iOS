@@ -20,4 +20,5 @@ struct Wall: Codable {
     let mime_type: String
     let updatedAt: String
     let addedBy: String
+    let creator: String
 }

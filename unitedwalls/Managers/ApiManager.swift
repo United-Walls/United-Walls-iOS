@@ -22,7 +22,7 @@ class ApiManager: ObservableObject {
     @Published var categoryWallsTotalCount: Int = 0
     @Published var mostFavouritedWalls: [Wall] = []
     @Published var mostDownloadedWalls: [Wall] = []
-    @Published var wallOfDay: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+    @Published var wallOfDay: Wall? = nil
     private var page = 0
     @Published var uploaders: [Uploader]
     @Published var selectedUploader: Uploader?
@@ -175,14 +175,14 @@ class ApiManager: ObservableObject {
             URLSession.shared.dataTask(with: request) { [self] data, res, err in
                 guard err == nil && "\((res as! HTTPURLResponse).statusCode)".hasPrefix("20") else {
                     DispatchQueue.main.async {
-                        self.wallOfDay = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+                        self.wallOfDay = nil
                     }
                     return
                 }
                 
                 guard let data = data else {
                     DispatchQueue.main.async {
-                        self.wallOfDay = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+                        self.wallOfDay = nil
                     }
                     return
                 }

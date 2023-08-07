@@ -14,7 +14,7 @@ struct UploaderWallScreenView: View {
     @EnvironmentObject var favouriteWallsStore: FavouriteWallsStore
     
     @State var showInfo: Bool = false
-    @State var selectedWall: Wall = Wall(_id: "", category: "", createdAt: "", file_id: "", thumbnail_id: "", file_name: "", file_url: "", thumbnail_url: "", mime_type: "", updatedAt: "", addedBy: "")
+    @State var selectedWall: Wall? = nil
     @State private var offset: CGSize = .zero
     @State private var currentImage: UIImage?
     @State private var saved: Bool = false
@@ -42,7 +42,7 @@ struct UploaderWallScreenView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             if apiManager.selectedUploader != nil {
-                WebImage(url: URL(string: selectedWall.thumbnail_url))
+                WebImage(url: URL(string: selectedWall?.thumbnail_url ?? ""))
                     .purgeable(true)
                     .resizable()
                     .indicator(.activity)
@@ -94,7 +94,7 @@ struct UploaderWallScreenView: View {
                     HStack(spacing: 4) {
                         Text("Name - ")
                             .font(Font.subheadline)
-                        Text(selectedWall.file_name)
+                        Text(selectedWall?.file_name ?? "")
                             .font(Font.footnote)
                     }
                     .padding(12)
@@ -141,22 +141,22 @@ struct UploaderWallScreenView: View {
 
                     //Favourite
                     Button {
-                        if let index = favouriteWallsStore.walls.firstIndex(where: {$0 == selectedWall._id}) {
+                        if let index = favouriteWallsStore.walls.firstIndex(where: {$0 == selectedWall?._id ?? ""}) {
                             favouriteWallsStore.walls.remove(at: index)
-                            self.apiManager.addToServer(wallId: selectedWall._id, api: "removeFav")
+                            self.apiManager.addToServer(wallId: selectedWall?._id ?? "", api: "removeFav")
                         } else {
-                            favouriteWallsStore.walls.insert(selectedWall._id, at: 0)
+                            favouriteWallsStore.walls.insert(selectedWall?._id ?? "", at: 0)
                         }
                         FavouriteWallsStore.save(walls: favouriteWallsStore.walls) { result in
                             if case .failure(let error) = result {
                                 fatalError(error.localizedDescription)
                             } else {
-                                self.apiManager.addToServer(wallId: selectedWall._id, api: "addFav")
+                                self.apiManager.addToServer(wallId: selectedWall?._id ?? "", api: "addFav")
                             }
                         }
                     } label: {
                         HStack {
-                            Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall._id}) ? "heart.fill" : "heart")
+                            Image(systemName: favouriteWallsStore.walls.contains(where: {$0 == selectedWall?._id ?? ""}) ? "heart.fill" : "heart")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 18, height: 18)
@@ -185,7 +185,7 @@ struct UploaderWallScreenView: View {
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showShareSheet) {
-                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                        let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall?.file_url ?? "")!))!
                         ShareSheet(photo: inputImage)
                     }
 
@@ -193,7 +193,7 @@ struct UploaderWallScreenView: View {
                     Button {
                         self.loading = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall.file_url)!))!
+                            let inputImage =  UIImage(data: try! Data(contentsOf: URL(string: selectedWall?.file_url ?? "")!))!
                             
                             let imageSaver = PhotoManager(albumName: "United Walls")
                             imageSaver.save(inputImage) { completed, error in
@@ -203,7 +203,7 @@ struct UploaderWallScreenView: View {
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                                         saved = false
-                                        self.apiManager.addToServer(wallId: selectedWall._id, api: "addDownloaded")
+                                        self.apiManager.addToServer(wallId: selectedWall?._id ?? "", api: "addDownloaded")
                                     }
                                 }
                             }

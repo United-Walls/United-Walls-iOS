@@ -12,6 +12,9 @@
 		E617A80529ECEB1C00A47EC6 /* MostPopularWallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E617A80429ECEB1C00A47EC6 /* MostPopularWallScreenView.swift */; };
 		E633338829CD4733003DE4FD /* SmoothAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E633338729CD4733003DE4FD /* SmoothAsyncImage.swift */; };
 		E6541C0529D1DAAA00A4F6C2 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6541C0429D1DAAA00A4F6C2 /* PrivacyPolicyView.swift */; };
+		E6610FD62A8062F600E9F08B /* PagerTabStripView in Frameworks */ = {isa = PBXBuildFile; productRef = E6610FD52A8062F600E9F08B /* PagerTabStripView */; };
+		E6610FD92A80669700E9F08B /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = E6610FD82A80669700E9F08B /* SwiftUIIntrospect */; };
+		E6610FDC2A806CC300E9F08B /* Awesome in Frameworks */ = {isa = PBXBuildFile; productRef = E6610FDB2A806CC300E9F08B /* Awesome */; };
 		E661A08F29B9FE6700C14423 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A08E29B9FE6700C14423 /* AboutView.swift */; };
 		E661A09129B9FEB900C14423 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661A09029B9FEB900C14423 /* Container.swift */; };
 		E67CB4BA2A6159D200556D87 /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67CB4B92A6159D200556D87 /* Uploader.swift */; };
@@ -122,8 +125,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6610FD62A8062F600E9F08B /* PagerTabStripView in Frameworks */,
 				E6FD20D229C1E0F70058A008 /* GoogleMobileAds in Frameworks */,
 				E68FBD0329B983C500BA2328 /* SDWebImageSwiftUI in Frameworks */,
+				E6610FDC2A806CC300E9F08B /* Awesome in Frameworks */,
+				E6610FD92A80669700E9F08B /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +392,9 @@
 			packageProductDependencies = (
 				E68FBD0229B983C500BA2328 /* SDWebImageSwiftUI */,
 				E6FD20D129C1E0F70058A008 /* GoogleMobileAds */,
+				E6610FD52A8062F600E9F08B /* PagerTabStripView */,
+				E6610FD82A80669700E9F08B /* SwiftUIIntrospect */,
+				E6610FDB2A806CC300E9F08B /* Awesome */,
 			);
 			productName = unitedwalls;
 			productReference = E68FBCCC29B9772E00BA2328 /* unitedwalls.app */;
@@ -418,6 +427,9 @@
 			packageReferences = (
 				E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				E6FD20D029C1E0F70058A008 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				E6610FD42A8062F600E9F08B /* XCRemoteSwiftPackageReference "PagerTabStripView" */,
+				E6610FD72A80669700E9F08B /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				E6610FDA2A806CC300E9F08B /* XCRemoteSwiftPackageReference "Awesome" */,
 			);
 			productRefGroup = E68FBCCD29B9772E00BA2328 /* Products */;
 			projectDirPath = "";
@@ -712,6 +724,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E6610FD42A8062F600E9F08B /* XCRemoteSwiftPackageReference "PagerTabStripView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xmartlabs/PagerTabStripView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		E6610FD72A80669700E9F08B /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+		E6610FDA2A806CC300E9F08B /* XCRemoteSwiftPackageReference "Awesome" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LiveUI/Awesome";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -731,6 +767,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E6610FD52A8062F600E9F08B /* PagerTabStripView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6610FD42A8062F600E9F08B /* XCRemoteSwiftPackageReference "PagerTabStripView" */;
+			productName = PagerTabStripView;
+		};
+		E6610FD82A80669700E9F08B /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6610FD72A80669700E9F08B /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		E6610FDB2A806CC300E9F08B /* Awesome */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6610FDA2A806CC300E9F08B /* XCRemoteSwiftPackageReference "Awesome" */;
+			productName = Awesome;
+		};
 		E68FBD0229B983C500BA2328 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E68FBD0129B983C500BA2328 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

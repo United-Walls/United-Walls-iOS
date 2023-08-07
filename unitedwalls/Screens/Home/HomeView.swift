@@ -34,7 +34,7 @@ struct HomeView: View {
                     }
                 } label: {
                     ZStack(alignment: .bottom) {
-                        WebImage(url: URL(string: apiManager.wallOfDay.file_url))
+                        WebImage(url: URL(string: apiManager.wallOfDay?.file_url ?? ""))
                             .purgeable(true)
                             .resizable()
                             .indicator(.activity)
