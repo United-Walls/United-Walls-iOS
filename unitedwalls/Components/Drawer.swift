@@ -240,58 +240,60 @@ struct Drawer: View {
             } else {
                 LazyVStack {
                     ForEach(apiManager.categories, id: \._id) { category in
-                        Button {
-                            DispatchQueue.main.async {
-                                SDImageCache.shared.clearMemory()
-                                if contentViewViewModel.categoryViewOpened {
-                                    contentViewViewModel.closeCategoryView()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        apiManager.unloadCategory()
+                        if category.walls.count > 0 {
+                            Button {
+                                DispatchQueue.main.async {
+                                    SDImageCache.shared.clearMemory()
+                                    if contentViewViewModel.categoryViewOpened {
+                                        contentViewViewModel.closeCategoryView()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            apiManager.unloadCategory()
+                                        }
                                     }
-                                }
-                                if contentViewViewModel.mostLikedScreenOpened {
-                                    contentViewViewModel.closeMostLikedScreenView()
-                                }
-                                if contentViewViewModel.mostPopularScreenOpened {
-                                    contentViewViewModel.closeMostPopularScreenView()
-                                }
-                                contentViewViewModel.closeSidebar()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    apiManager.loadCategoryById(categoryId: category._id, initialize: true)
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                    contentViewViewModel.openCategoryView()
-                                }
-                                if contentViewViewModel.homeViewOpened {
-                                    contentViewViewModel.closeHomeView()
-                                }
-                                if contentViewViewModel.aboutViewOpened {
-                                    contentViewViewModel.closeAboutView()
-                                }
-                                if contentViewViewModel.categoriesViewOpened {
-                                    contentViewViewModel.closeCategoriesView()
-                                }
-                                if contentViewViewModel.uploaderViewOpened {
-                                    contentViewViewModel.closeUploaderScreenView()
-                                }
-                                if contentViewViewModel.uploadersViewOpened {
-                                    contentViewViewModel.closeUploadersScreenView()
-                                }
-                                if contentViewViewModel.favouriteWallsViewOpened {
-                                    contentViewViewModel.closeFavouriteWalls()
+                                    if contentViewViewModel.mostLikedScreenOpened {
+                                        contentViewViewModel.closeMostLikedScreenView()
+                                    }
+                                    if contentViewViewModel.mostPopularScreenOpened {
+                                        contentViewViewModel.closeMostPopularScreenView()
+                                    }
+                                    contentViewViewModel.closeSidebar()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        apiManager.unloadFavouriteWalls()
+                                        apiManager.loadCategoryById(categoryId: category._id, initialize: true)
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                        contentViewViewModel.openCategoryView()
+                                    }
+                                    if contentViewViewModel.homeViewOpened {
+                                        contentViewViewModel.closeHomeView()
+                                    }
+                                    if contentViewViewModel.aboutViewOpened {
+                                        contentViewViewModel.closeAboutView()
+                                    }
+                                    if contentViewViewModel.categoriesViewOpened {
+                                        contentViewViewModel.closeCategoriesView()
+                                    }
+                                    if contentViewViewModel.uploaderViewOpened {
+                                        contentViewViewModel.closeUploaderScreenView()
+                                    }
+                                    if contentViewViewModel.uploadersViewOpened {
+                                        contentViewViewModel.closeUploadersScreenView()
+                                    }
+                                    if contentViewViewModel.favouriteWallsViewOpened {
+                                        contentViewViewModel.closeFavouriteWalls()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            apiManager.unloadFavouriteWalls()
+                                        }
                                     }
                                 }
+                            } label: {
+                                Text(category.name)
+                                    .fontWeight(.light)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 36)
+                                    .padding(12)
                             }
-                        } label: {
-                            Text(category.name)
-                                .fontWeight(.light)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 36)
-                                .padding(12)
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.vertical, 12)
