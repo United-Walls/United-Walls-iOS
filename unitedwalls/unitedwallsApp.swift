@@ -25,6 +25,12 @@ struct unitedwallsApp: App {
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.theme.bgColor)], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.theme.textColor)], for: .normal)
         
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        UINavigationBar.appearance().standardAppearance = appearance
+
         requestIDFA()
     }
     

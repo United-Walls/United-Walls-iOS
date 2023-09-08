@@ -26,7 +26,7 @@ struct CategoryView: View {
                 }
                 .padding(.horizontal, 15)
                 
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 5) {
                     if apiManager.selectedCategory != nil {
                         ForEach(Array(apiManager.selectedCategory!.walls.enumerated()), id:\.element._id) { index, wall in
                             Button {
